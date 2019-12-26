@@ -1,0 +1,20 @@
+{
+  "name": "a-cats-dream",
+  "version": "1.0.0",
+  "description": "What do cat's dream about during a cat nap?  A game where a cat goes to a dream land collects fireflies and defeats enemies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tsunamins/a-cats-dream.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tsunamins/a-cats-dream/issues"
+  },
+  "homepage": "https://github.com/Tsunamins/a-cats-dream#readme"
+}
