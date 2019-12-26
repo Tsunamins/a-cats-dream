@@ -1,2 +1,3 @@
 -add a serializer later, more than likely
 -add validations, various if exists statments to controllers where necessary
+-remember when working with stats in game will have to pass back as integer, so will have to round
