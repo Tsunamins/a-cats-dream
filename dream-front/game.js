@@ -1,5 +1,5 @@
 //import GameScene from './game.js'
-//import TitleScene from './title.js'
+import TitleScene from 'src/game/TitleScene.js'
 
 
 let config = {
@@ -15,7 +15,8 @@ let config = {
           debug: false
       }
   },
-    scene: gameScene, titleScene,
+    scene: TitleScene, 
+    //GameScene,
     // extend:{
     //   bullets: null
     // }
