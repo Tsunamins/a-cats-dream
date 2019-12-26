@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     def destroy
         @user = User.find(params[:id])
         @user.delete
-        render json: {userId: @user.id} #do not want to pass back all info, just the reference to what was deleted
+        render json: {userId: @user.id} 
     end
 
     private

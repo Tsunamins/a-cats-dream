@@ -8,3 +8,6 @@
 
 User.create([
 {email: 'user1@user1.com'},])
+
+Game.create([
+{game_save: 'datagame1', user_id: 1},])
