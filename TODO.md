@@ -6,6 +6,7 @@ Remember to do list:
 -make sure using const where necc
 
 Current task list:
+-**next: add a game logo and text click screen to play
 
 
 -1st game task - make main game file with a TitleScene refernce, make the title scene with click to start game play ability
