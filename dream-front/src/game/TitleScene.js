@@ -11,6 +11,11 @@ class TitleScene extends Phaser.Scene {
     create(){
        let background = this.add.image(0, 0, 'background');//dimensions for now at least
        background.setOrigin(0,0);
+
+       this.input.once('pointerdown', function () {
+        
+        this.scene.start('GameScene');
+    }, this);
        
     }
 
