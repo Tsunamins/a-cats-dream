@@ -1,1 +1,2 @@
 -add a serializer later, more than likely
+-add validations, various if exists statments to controllers where necessary
