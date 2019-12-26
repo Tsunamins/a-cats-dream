@@ -1,4 +1,6 @@
 # README
+What do cat's dream about during a cat nap?  A game where a cat goes to a dream land collects fireflies and defeats enemies.
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
