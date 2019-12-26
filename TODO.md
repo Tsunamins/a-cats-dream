@@ -3,6 +3,7 @@ Remember to do list:
 -add validations, various if exists statments to controllers where necessary
 -remember when working with stats in game will have to pass back as integer, so will have to round
 -may want different adapters - user, game, stat (ie. userAdapter, gameAdapter, statAdapter)
+-make sure using const where necc
 
 Current task list:
 
