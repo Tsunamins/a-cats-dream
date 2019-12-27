@@ -63,14 +63,48 @@ class GameScene extends Phaser.Scene {
     }
 
     update(){
-         //create player movement based on touch/mouse events, want to keep for mobile possibilities
-         if(this.input.activePointer.isDown){
+        //create player movement based on touch/mouse events, want to keep for mobile possibilities
+        if(this.input.activePointer.isDown){
             player.x += (pointer.x - player.x) * 0.05;
             player.y += (pointer.y - player.y) * 0.05;
             
             };
 
+            if (cursors.left.isDown){
+                player.flipX = true;
+                player.setVelocityX(-160);
+                player.anims.play('walking', true);
+        
+            } else if (cursors.right.isDown){
+               player.flipX = false;
+               player.setVelocityX(160);
+                player.anims.play('walking', true);
+        
+               
+            } else {
+              
+              player.setVelocityX(0);
+              player.anims.play('turn', true);
+    
+            };
+    
+            if (cursors.up.isDown){
+              player.setVelocityY(-160);
+              player.anims.play('walking', true);
+      
+             
+          } else if (cursors.down.isDown){
+              player.setVelocityY(160);
+              player.anims.play('walking', true);
+      
             
+          } else {
+            
+            player.setVelocityY(0);
+           
+          };
+
+
     }
 
 
