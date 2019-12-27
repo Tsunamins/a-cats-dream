@@ -17,6 +17,7 @@ class GameScene extends Phaser.Scene {
         this.load.image('tiles', './assets/maps/pinktilesheet.png');
         this.load.tilemapTiledJSON('map', './assets/maps/1stworkingmap.json');
         this.load.spritesheet('player', './assets/images/catspritesheet.png', { frameWidth: 35, frameHeight: 32 });
+        this.load.image('magic', './assets/images/magicb.png')
     }
 
     create(){
@@ -27,6 +28,54 @@ class GameScene extends Phaser.Scene {
         this.layer_roads = this.map.createStaticLayer('roads', this.tiles, 0, 0);
         this.layer_collision = this.map.createStaticLayer('buildings-trees', this.tiles, 0, 0);
         this.layer_collision.setCollisionByExclusion([-1], true, this);
+
+        /*********************************************** */
+        //create bullets section, this will want to try and move to new class file:
+        var Magic = new Phaser.Class({
+            Extends: Phaser.GameObjects.Sprite,
+            initialize:
+              function Magic (scene)
+              {
+                  Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'magic');
+                  this.speed = 1;
+                  this.born = 0;
+                  this.direction = 0;
+                  this.xSpeed = 0;
+                  this.ySpeed = 0;
+                  this.setSize(12, 12, true);
+              },
+              fire: function (player)
+              {
+                  this.setPosition(player.x, player.y);
+                  if (player.flipX)
+                  {
+                      //face left
+                      this.speed = Phaser.Math.GetSpeed(-1000, 1);
+                  }
+                  else
+                  {
+                      //face right
+                      this.speed = Phaser.Math.GetSpeed(1000, 1);
+                  }
+                  this.born = 0;
+              },
+              update: function (time, delta)
+              {
+                  this.x += this.speed * delta;
+                  this.born += delta;
+                  if (this.born > 1000)
+                  {
+                      this.setActive(false);
+                      this.setVisible(false);
+                  }
+              }
+            });
+      
+      //still in create function, create bullets
+        this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
+        this.physics.world.enable(this.magics);
+            //end bullets section
+    //******************************************** */
 
         //create player from Tiled definitions
         this.map.findObject('objects', (obj) => {
@@ -111,6 +160,24 @@ class GameScene extends Phaser.Scene {
           } else {   
             this.player.setVelocityY(0); 
           };
+
+          //**************************************** */
+          //firing section
+          if (this.cursors.space.isDown){
+            //firing animation for cat not working yet
+            // player.setVelocity(0);
+            // player.anims.play('fire', true);
+              var magic = this.magics.get();
+              magic.setActive(true);
+              magic.setVisible(true);
+      
+              if (magic){   
+                  magic.fire(this.player);
+                  //this.physics.add.overlap(magic, enemies, hitAnEnemy, null, this);
+                  
+                  //this.physics.add.collider(magic, layer_collision);
+              }
+            }
 
 
     }
