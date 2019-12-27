@@ -67,6 +67,11 @@ class GameScene extends Phaser.Scene {
               //   frames: [ { key: 'player', frame: 4 } ],
               //   frames: 20
               // });
+
+        //create cameras for tracking player movement
+        //will want to adjust this, or maybe works well enough with line startFollow
+        //this.cameras.main.setSize(400, 300);
+        this.cameras.main.startFollow(this.player);
     }
 
     update(){
