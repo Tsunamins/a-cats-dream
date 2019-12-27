@@ -1,7 +1,8 @@
-//import GameScene from './game.js'
+import GameScene from './src/game/GameScene.js'
 import TitleScene from './src/game/TitleScene.js'
 
 let titleScene = new TitleScene();
+let gameScene = new GameScene();
 
 let config = {
     type: Phaser.AUTO, 
@@ -17,14 +18,15 @@ let config = {
       }
   },
     scene: TitleScene, 
-    //GameScene,
+    GameScene,
     // extend:{
     //   bullets: null
     // }
   };
 
   let game = new Phaser.Game(config);
-  
+  game.scene.add('TitleScene', titleScene);
+  game.scene.add('GameScene', gameScene);
 
 
  
