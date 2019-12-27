@@ -5,7 +5,8 @@ class TitleScene extends Phaser.Scene {
         })
     }
 
-    preload(){ this.load.image('background', './assets/images/pinkscene800600.png');
+    preload(){ 
+        this.load.image('background', './assets/images/pinkscenelogo800600.png');
     }
 
     create(){
