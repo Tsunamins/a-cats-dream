@@ -98,15 +98,11 @@ var Magic = new Phaser.Class({
           this.born = 0;
       },
       update: function (time, delta)
-      {
-       
-          this.x += this.speed * delta;
-         
-          this.born += delta;
-         
+      { 
+          this.x += this.speed * delta;      
+          this.born += delta;   
           if (this.born > 1000)
-          {
-             
+          {    
               this.setActive(false);
               this.setVisible(false);
           }
