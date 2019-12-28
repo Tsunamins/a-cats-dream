@@ -1,5 +1,6 @@
 import Player from './Player.js';
 import Magic from './Magic.js';
+//import Enemy from './Enemy.js';
 
 class GameScene extends Phaser.Scene {
     constructor(){
@@ -10,7 +11,7 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
-      this.delta;
+      //this.delta;
     }
 
     
@@ -20,6 +21,7 @@ class GameScene extends Phaser.Scene {
         this.load.tilemapTiledJSON('map', './assets/maps/1stworkingmap.json');
         this.load.spritesheet('player', './assets/images/catspritesheet.png', { frameWidth: 35, frameHeight: 32 });
         this.load.image('magic', './assets/images/magicb.png')
+        this.load.spritesheet('enemy', './assets/images/enemyspritesheet.png', { frameWidth: 32, frameHeight: 32 });
     }
 
     create(){
@@ -41,6 +43,9 @@ class GameScene extends Phaser.Scene {
             }
             //if this ends up in a separate player/class file need new Player(,,)
         });
+
+        //create enemy
+       
 
         //player animations
         this.anims.create({
@@ -67,6 +72,9 @@ class GameScene extends Phaser.Scene {
           //create world collision, cat currently stopping at 600, will change all dimensions later with new map and config
         //   this.physics.add.existing(this.player);
         //   this.player.setCollideWorldBounds(true);
+
+
+
 
     //create cameras for tracking player movement
     //will want to adjust this, or maybe works well enough with line startFollow
