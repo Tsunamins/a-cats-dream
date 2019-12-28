@@ -1,5 +1,5 @@
 //import Player from 'Player.js';
-//import Magic from 'Magic.js';
+import Magic from './Magic.js';
 
 class GameScene extends Phaser.Scene {
     constructor(){
@@ -10,6 +10,7 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
+      this.delta;
     }
 
     
@@ -30,53 +31,7 @@ class GameScene extends Phaser.Scene {
         this.layer_collision = this.map.createStaticLayer('buildings-trees', this.tiles, 0, 0);
         this.layer_collision.setCollisionByExclusion([-1], true, this);
 
-        /*********************************************** */
-        //create bullets section, this will want to try and move to new class file:
-        // var Magic = new Phaser.Class({
-        //     Extends: Phaser.GameObjects.Sprite,
-        //     initialize:
-        //       function Magic (scene)
-        //       {
-        //           Phaser.GameObjects.Sprite.call(this, scene, 0, 0, 'magic');
-        //           this.speed = 1;
-        //           this.born = 0;
-        //           this.direction = 0;
-        //           this.xSpeed = 0;
-        //           this.ySpeed = 0;
-        //           this.setSize(12, 12, true);
-        //       },
-        //       fire: function (player)
-        //       {
-        //           this.setPosition(player.x, player.y);
-        //           if (player.flipX)
-        //           {
-        //               //face left
-        //               this.speed = Phaser.Math.GetSpeed(-1000, 1);
-        //           }
-        //           else
-        //           {
-        //               //face right
-        //               this.speed = Phaser.Math.GetSpeed(1000, 1);
-        //           }
-        //           this.born = 0;
-        //       },
-        //       update: function (time, delta)
-        //       {
-        //           this.x += this.speed * delta;
-        //           this.born += delta;
-        //           if (this.born > 1000)
-        //           {
-        //               this.setActive(false);
-        //               this.setVisible(false);
-        //           }
-        //       }
-        //     });
       
-      //still in create function, create bullets
-        this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
-        this.physics.world.enable(this.magics);
-            //end bullets section
-    //******************************************** */
 
         //create player from Tiled definitions
         this.map.findObject('objects', (obj) => {
@@ -86,6 +41,15 @@ class GameScene extends Phaser.Scene {
             //if this ends up in a separate player/class file need new Player(,,)
         });
 
+         /****working with original class */
+       this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
+       this.physics.world.enable(this.magics);
+
+       /*****working with es6 class ********/
+        //this seems to add the magic disc but does not propel it 
+        //this.magic = new Magic(this, this.player.x, this.player.y);
+        
+        
         //create input
         this.pointer = this.input.activePointer;
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -132,6 +96,8 @@ class GameScene extends Phaser.Scene {
             
             };
 
+            
+
             if(this.cursors.left.isDown){
                 this.player.flipX = true;
                 this.player.setVelocityX(-160);
@@ -168,12 +134,24 @@ class GameScene extends Phaser.Scene {
             //firing animation for cat not working yet
             // player.setVelocity(0);
             // player.anims.play('fire', true);
-              var magic = this.magics.get();
-              magic.setActive(true);
-              magic.setVisible(true);
+
+            /***** working with original class */
+               var magic = this.magics.get();
+               magic.setActive(true);
+               magic.setVisible(true);
+               if (magic){   
+                magic.fire(this.player);
+
+                /*******working with es6 class */
+             //
+            //  this.magic.update(delta); //update needs to be called within update but cannot get delta value needed
+            //   this.magic.setActive(true);
+            //   this.magic.setVisible(true);
       
-              if (magic){   
-                  magic.fire(this.player);
+            //   if (this.magic){   
+            //       this.magic.fire(this.player);
+                  
+                  //magic collisions not added yet
                   //this.physics.add.overlap(magic, enemies, hitAnEnemy, null, this);
                   
                   //this.physics.add.collider(magic, layer_collision);
