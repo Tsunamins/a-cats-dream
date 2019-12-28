@@ -1,6 +1,7 @@
 
 /******************* */
 //this was es6 attempt, below is original class construction
+//cannot get delta value to pass in properly
 // export default class Magic extends Phaser.Physics.Arcade.Sprite{
 //     constructor(scene, x, y){
 //         super(scene, x, y, 'magic');
@@ -98,14 +99,14 @@ var Magic = new Phaser.Class({
       },
       update: function (time, delta)
       {
-          console.log(delta);
+       
           this.x += this.speed * delta;
-          console.log(this.x += this.speed * delta)
+         
           this.born += delta;
-          console.log(this.born += delta)
+         
           if (this.born > 1000)
           {
-              console.log(this.born > 1000)
+             
               this.setActive(false);
               this.setVisible(false);
           }
