@@ -1,23 +1,27 @@
-const baseURL = "http://localhost:3000";
+class UsersAdapter { 
+    constructor() {
+        this.baseUrl = 'http://localhost:3000/users'
 
-const UsersAdapter = {
+    }
 
-  getUsers: () => {
-    return fetch(`${baseURL}/users`)
-    .then(res=>res.json())
-  },
+    getUsers() {
+        return fetch(this.baseUrl) 
+        .then(res => res.json()) 
+        
+    }
 
-  createUser: (email) => {
-    return fetch(`${baseURL}/users`, {
-      method: 'POST',
-      headers: { 
-        "Accept": "application/json", 
-        "Content-Type": "application/json"
-     },
-      body: JSON.stringify({'email': email})   
-    })
-    .then(res => res.json())
-    },
-
+    createUser(value){
+        // const user = {
+        //     body: value
+        // }
+        // //debugger
+        return fetch(this.baseUrl,{
+            method: 'POST', 
+            headers: {                
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({'email': email})
+        }) 
+        .then(res => res.json()) 
+    }
 }
-
