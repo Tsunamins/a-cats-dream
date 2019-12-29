@@ -1,6 +1,6 @@
 class Users {
     constructor() {
-        this.users = []; //set property called users to empty array
+        
         this.adapter = new UsersAdapter() ;
         this.userEvents();
         
@@ -15,26 +15,25 @@ class Users {
         this.userForm = document.getElementById('user-info')
 
         //use userForm from above with event listerner on submit bind this to the funtion createUser
-        this.userForm.addEventListener('submit', this.createUser.bind(this)) 
+        this.userForm.addEventListener('submit', this.createUser.bind(this))
+        console.log(this) 
     }
 
     createUser(e){
-        
-        e.preventDefault()
-       
-        const value = this.userEmailInput.value
-
+        e.preventDefault()  
+        const value = this.userEmailInput.value      
         this.adapter.createUser(value).then(user => {  
- 
+            
             this.render(value) 
+            this.userEmailInput.value = ""
         })
     }
-
-   
 
     render(value){    
         const h3 = document.createElement('h3');
         h3.innerHTML = `<h3>${value}</h3>`;
         this.setCurrentUser.appendChild(h3);  
     }
+
+   
 }
