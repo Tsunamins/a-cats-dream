@@ -1,64 +1,40 @@
 class Users {
     constructor() {
-     
+        this.users = []; //set property called users to empty array
+        this.adapter = new UsersAdapter() ;
+        this.userEvents();
         
-        this.initBindingsAndEventListeners() //to be created
-        this.fetchAndLoadCurrentUser()
     }
 
-    initBindingsAndEventListeners(){
-        this.currentUser = document.getElementById('current-user')
-        this.userEmail = document.getElementById('user-email')
-        this.userInfo = document.getElementById('user-info')
-        this.userInfo.addEventListener('submit', this.createUser.bind(this)) 
+    userEvents(){
+        //get the div that will display the current user
+        this.setCurrentUser = document.getElementById('current-user')
+        //get the input field for email
+        this.userEmailInput = document.getElementById('user-email')
+        //get the form tag for user input
+        this.userForm = document.getElementById('user-info')
+
+        //use userForm from above with event listerner on submit bind this to the funtion createUser
+        this.userForm.addEventListener('submit', this.createUser.bind(this)) 
     }
 
     createUser(e){
         
         e.preventDefault()
        
-        const value = this.userEmail.value
+        const value = this.userEmailInput.value
 
-        this.adapter.createUser(value).then(user => {
-            
-            this.userEmail.value = "" //clear repeated values from the previous entry, otherwise stays in the bar on submit
-            this.render() //call render again so it updates the dom on addition of new note, can see new note without refresh
+        this.adapter.createUser(value).then(user => {  
+ 
+            this.render(value) 
         })
     }
 
-    fetchAndLoadCurrentUser() {
+   
 
-        this.adapter
-        .getUsers()
-        .then(users => {
-            
-            users.forEach(user => this.users.push(new User(user))) //changes to Note objects to be able to take advantage of the note class
-            
-        })
-        .then(() => {
-            this.render()
-        })
-    }
-
-    render(){
-        //consider from here have access to this.notes, try console.log(this.notes)
-        
-        
-
-        
-        this.currentUser.innerHTML = this.userEmail.value
-        
-
-
-        //my simple solution, not working with ul/li
-        // this.notes.forEach(note => {
-        //     const p = document.createElement('p')
-        //     p.innerHTML = `<p>${note.body}</p>` //is this way simpler, however?
-        //     notesContainer.appendChild(p)
-        //})
-
-        
-        
-
+    render(value){    
+        const h3 = document.createElement('h3');
+        h3.innerHTML = `<h3>${value}</h3>`;
+        this.setCurrentUser.appendChild(h3);  
     }
 }
