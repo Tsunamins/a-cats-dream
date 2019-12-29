@@ -1,6 +1,7 @@
-class Ui {
+class UI {
     constructor(){ 
         
-        this.users = new Users()
+        this.users = new Users() 
+       
     }
 }

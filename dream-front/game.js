@@ -1,6 +1,8 @@
 import GameScene from './src/game/GameScene.js'
 import TitleScene from './src/game/TitleScene.js'
 
+const ui = new UI()
+
 let titleScene = new TitleScene();
 let gameScene = new GameScene();
 
