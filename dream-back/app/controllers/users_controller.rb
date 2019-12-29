@@ -11,16 +11,16 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        @user = User.new(user_params)
+        @user = User.find_or_create_by(email: user_params[:email])
       
-      if @user.valid?
-        @user.save
+    #   if @user.valid?
+    #     @user.save
         #if using sessions
         #session[:user_id] = @user.id
         
       #else
       render json: @user, status: 200
-      end
+      
     end
 
     def update
