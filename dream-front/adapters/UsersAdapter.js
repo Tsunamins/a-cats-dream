@@ -1,18 +1,15 @@
-class UsersAdapter { 
-    constructor() {
-        this.baseUrl = 'http://localhost:3000/users'
+const baseUrl = 'http://localhost:3000/users';
+const UsersAdapter = {
 
-    }
-
-    getUsers() {
-        return fetch(this.baseUrl) 
+    getUsers: () => {
+        return fetch(baseUrl) 
         .then(res => res.json()) 
         
-    }
+    },
 
-    createUser(value){
+    createUser: (value) => {
      
-        return fetch(this.baseUrl,{
+        return fetch(baseUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
@@ -20,10 +17,10 @@ class UsersAdapter {
             body: JSON.stringify({'email': value})
         }) 
         .then(res => res.json()) 
-    }
+    },
 
-    updateUser(value){
-        return fetch(this.baseUrl,{
+    updateUser: (value) => {
+        return fetch(baseUrl,{ //prob baseUrl plus id in ``
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -32,9 +29,9 @@ class UsersAdapter {
         })
         .then(res => res.json())
 
-    }
+    },
 
-    deleteUser(id){
+    deleteUser: (id) => {
         return fetch(`this.baseUrl/${id}`,{
             method: 'DELETE'
 
@@ -45,3 +42,4 @@ class UsersAdapter {
 
 
 }
+
