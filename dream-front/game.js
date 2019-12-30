@@ -2,9 +2,27 @@ import GameScene from './src/game/GameScene.js'
 import TitleScene from './src/game/TitleScene.js'
 
 
+let currentUser;
+const userInfo = document.getElementById('user-info');
+userInfo.addEventListener('submit', establishUser);
 
-let titleScene = new TitleScene();
-let gameScene = new GameScene();
+
+
+function establishUser(event){
+  event.preventDefault();
+  
+  
+  currentUser = event.target[0].value
+  console.log(currentUser)
+  let user = new Users(currentUser)
+  
+  let game = new Phaser.Game(config);
+}
+
+
+
+//let titleScene = new TitleScene();
+//let gameScene = new GameScene();
 
 let config = {
     type: Phaser.AUTO, 
@@ -19,18 +37,18 @@ let config = {
           debug: false
       }
   },
-    scene: TitleScene, 
-    GameScene,
+    scene: [TitleScene, 
+    GameScene,]
     // extend:{
     //   bullets: null
     // }
   };
 
-  let game = new Phaser.Game(config);
-  game.scene.add('TitleScene', titleScene);
-  game.scene.add('GameScene', gameScene);
+  
+  //game.scene.add('TitleScene', titleScene);
+  //game.scene.add('GameScene', gameScene);
 
-  const ui = new UI();
+  //const ui = new UI();
 
 
  
