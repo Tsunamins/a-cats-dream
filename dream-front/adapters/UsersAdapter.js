@@ -21,4 +21,27 @@ class UsersAdapter {
         }) 
         .then(res => res.json()) 
     }
+
+    updateUser(value){
+        return fetch(this.baseUrl,{
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            }, 
+            body: JSON.stringify({'email': value})
+        })
+        .then(res => res.json())
+
+    }
+
+    deleteUser(id){
+        return fetch(`this.baseUrl/${id}`,{
+            method: 'DELETE'
+
+        })
+        .then(res => res.json())
+
+    }
+
+
 }
