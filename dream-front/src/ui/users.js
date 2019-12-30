@@ -1,42 +1,47 @@
 class Users {
-    constructor() {
-        this.currentUser;
-        this.adapter = new UsersAdapter() ;
+    constructor(currentUser) {
+        this.currentUser = currentUser;
+       
         this.userEvents();
+
         
     }
 
     userEvents(){
+
         //get the div that will display the current user
         this.setCurrentUser = document.getElementById('current-user')
-        //get the input field for email
         this.userEmailInput = document.getElementById('user-email')
-        //get the form tag for user input
-        this.userForm = document.getElementById('user-info')
 
-        //use userForm from above with event listerner on submit bind this to the funtion createUser
-        this.userForm.addEventListener('submit', this.createUser.bind(this))
-        console.log(this) 
 
-        this.setCurrentUser.addEventListener('click', this.deleteUser.bind(this))
+        UsersAdapter.createUser(this.currentUser).then(user => {  
+            
+            console.log(this.currentUser)
+            this.render(this.currentUser) 
+            this.userEmailInput.value = ""
+        })
 
-        // this.setCurrentUser.addEventListener('click', function(event){
-        //     let updateEvent = event.target.className === "update"
-        //     let deleteEvent = event.target.className === "delete"
-
-       // })
+     
 
     }
 
-    createUser(e){
-        e.preventDefault()  
-        const value = this.userEmailInput.value      
-        this.adapter.createUser(value).then(user => {  
-            this.currentUser = user;
-            console.log(this.currentUser)
-            this.render(value) 
-            this.userEmailInput.value = ""
-        })
+   
+    //doesn't work yet
+    handleUpdateUserForm(e){
+        e.preventDefault();
+           //get the form tag for user input
+        this.userUpdate = document.getElementById('user-update')
+
+        //use userForm from above with event listerner on submit bind this to the funtion createUser
+        this.userUpdate.addEventListener('submit', this.updateUser.bind(this))
+        
+    }
+
+    //doesn't work yet
+    updateUser(e){
+        e.preventDefault();
+        console.log("user update handled")
+
     }
 
     deleteUser(e){
@@ -56,12 +61,19 @@ class Users {
     render(value){    
         const h3 = document.createElement('h3');
         const updateButton = document.createElement('input')
+        const removeForm = document.getElementById("user-info")
+        //adds an update form but doesn't work well with eventlisteners since it doesn't exist yet
         h3.innerHTML = `
             <h3 id="user">${value}</h3>
-            <button class='update'>Update</button>
-            <button class="delete">Delete</button>`;
+            
+        <form id="update-form">
+            <input id="user-update" type="text" name="email">
+            <input type="submit" value="Update">
+        </form>
+        <button class="delete">Delete</button>`;
         
-        this.setCurrentUser.appendChild(h3);  
+        this.setCurrentUser.appendChild(h3);
+        removeForm.style.display = 'none';
     }
 
    
