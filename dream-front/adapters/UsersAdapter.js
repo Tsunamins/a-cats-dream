@@ -7,6 +7,11 @@ const UsersAdapter = {
         
     },
 
+    getUser: (id) => {
+        return fetch(`baseUrl/${id}`)
+        .then(res => res.json())
+    },
+
     createUser: (value) => {
      
         return fetch(baseUrl, {
@@ -16,11 +21,12 @@ const UsersAdapter = {
             },
             body: JSON.stringify({'email': value})
         }) 
-        .then(res => res.json()) 
+        .then(res => res.json())
+        .then(data => localStorage.setItem('user_id', data.id))
     },
 
     updateUser: (value) => {
-        return fetch(baseUrl,{ //prob baseUrl plus id in ``
+        return fetch(`baseUrl/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -32,7 +38,7 @@ const UsersAdapter = {
     },
 
     deleteUser: (id) => {
-        return fetch(`this.baseUrl/${id}`,{
+        return fetch(`baseUrl/${id}`,{
             method: 'DELETE'
 
         })
