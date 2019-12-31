@@ -2,20 +2,18 @@ import GameScene from './src/game/GameScene.js'
 import TitleScene from './src/game/TitleScene.js'
 
 
-let currentUser;
+let userInput;
 const userInfo = document.getElementById('user-info');
 userInfo.addEventListener('submit', establishUser);
 
-
-
 function establishUser(event){
-  event.preventDefault();
-  
-  
-  currentUser = event.target[0].value
-  console.log(currentUser)
-  let user = new Users(currentUser)
-  
+  event.preventDefault(); 
+  userInput = event.target[0].value
+  console.log(userInput)
+
+  let user = new Users(userInput)
+  console.log(user.currentUser)
+ 
   let game = new Phaser.Game(config);
 }
 

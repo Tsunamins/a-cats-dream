@@ -1,31 +1,18 @@
 class Users {
     constructor(currentUser) {
         this.currentUser = currentUser;
-       
-        this.userEvents();
-
-        
+        this.userEvents();     
     }
-
     userEvents(){
 
         //get the div that will display the current user
         this.setCurrentUser = document.getElementById('current-user')
         this.userEmailInput = document.getElementById('user-email')
-
-
-        UsersAdapter.createUser(this.currentUser).then(user => {  
-            
-            console.log(this.currentUser)
-            this.render(this.currentUser) 
+        UsersAdapter.createUser(this.currentUser).then(user => {         
+            console.log(user)          this.render(this.currentUser) 
             this.userEmailInput.value = ""
         })
-
-     
-
-    }
-
-   
+    } 
     //doesn't work yet
     handleUpdateUserForm(e){
         e.preventDefault();
