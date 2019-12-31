@@ -9,13 +9,14 @@ userInfo.addEventListener('submit', establishUser);
 function establishUser(event){
   event.preventDefault(); 
   userInput = event.target[0].value
-  console.log(userInput)
-
-  let user = new Users(userInput)
-  console.log(user.currentUser)
- 
-  let game = new Phaser.Game(config);
+  const user = new Users(userInput)
+  UsersAdapter.createLocalStorage(userInput)
+  
+  const game = new Phaser.Game(config);
 }
+
+
+
 
 
 
