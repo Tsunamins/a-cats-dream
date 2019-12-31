@@ -1,49 +1,23 @@
 class Users {
     constructor(currentUser) {
-        this.currentUser = currentUser;
-        this.userEvents();     
+        this.currentUser = currentUser;  
+        this.userEvents();       
     }
     userEvents(){
 
         //get the div that will display the current user
         this.setCurrentUser = document.getElementById('current-user')
         this.userEmailInput = document.getElementById('user-email')
-        UsersAdapter.createUser(this.currentUser).then(user => {         
-            console.log(user)          this.render(this.currentUser) 
+        UsersAdapter.createUser(this.currentUser).then(user => { 
+            //setting this here will need to create a "logout button with localStorage.clear()"
+        //    localStorage.setItem('user_id', user.id)
+        //    localStorage.setItem('user_email', user.email)
+          
+            this.render(this.currentUser) 
             this.userEmailInput.value = ""
         })
-    } 
-    //doesn't work yet
-    handleUpdateUserForm(e){
-        e.preventDefault();
-           //get the form tag for user input
-        this.userUpdate = document.getElementById('user-update')
-
-        //use userForm from above with event listerner on submit bind this to the funtion createUser
-        this.userUpdate.addEventListener('submit', this.updateUser.bind(this))
-        
     }
 
-    //doesn't work yet
-    updateUser(e){
-        e.preventDefault();
-        console.log("user update handled")
-
-    }
-
-    deleteUser(e){
-        e.preventDefault()
-        
-        let deleteEvent = event.target.className === "delete"
-
-        if (deleteEvent){
-            let id = this.currentUser.id
-            this.adapter.deleteUser(id)
-        }
-
-
-
-    }
 
     render(value){    
         const h3 = document.createElement('h3');
@@ -55,7 +29,7 @@ class Users {
             
         <form id="update-form">
             <input id="user-update" type="text" name="email">
-            <input type="submit" value="Update">
+            <input id="update-button" type="submit" value="Update">
         </form>
         <button class="delete">Delete</button>`;
         
