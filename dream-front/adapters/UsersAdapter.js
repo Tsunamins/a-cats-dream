@@ -22,10 +22,24 @@ const UsersAdapter = {
             body: JSON.stringify({'email': value})
         }) 
         .then(res => res.json())
-        .then(data => localStorage.setItem('user_id', data.id))
+        //this interferes with userclass construction
+        //.then(data => localStorage.setItem('user_id', data.id))
     },
 
-    updateUser: (value) => {
+    createLocalStorage: (value) => {
+        return fetch(baseUrl, {
+            method: 'POST', 
+            headers: {                
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({'email': value})
+        }) 
+        .then(res => res.json())
+         .then(data => localStorage.setItem('user_id', data.id))
+        
+    },
+
+    updateUser: (id, value) => {
         return fetch(`baseUrl/${id}`,{
             method: 'PATCH',
             headers: {
