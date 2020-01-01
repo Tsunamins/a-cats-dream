@@ -21,20 +21,15 @@ class Users {
 
     render(value){    
         const h3 = document.createElement('h3');
-        const updateButton = document.createElement('input')
+        const userFunctions = document.getElementById('user-functions')
         const removeForm = document.getElementById("user-info")
         //adds an update form but doesn't work well with eventlisteners since it doesn't exist yet
         h3.innerHTML = `
-            <h3 id="user">${value}</h3>
-            
-        <form id="update-form">
-            <input id="user-update" type="text" name="email">
-            <input id="update-button" type="submit" value="Update">
-        </form>
-        <button class="delete">Delete</button>`;
+            <h3 id="user">${value}</h3>`;
         
         this.setCurrentUser.appendChild(h3);
         removeForm.style.display = 'none';
+        userFunctions.style.visibility = 'visible';
     }
 
    
