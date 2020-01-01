@@ -11,6 +11,7 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
+      //prob put new game attached to adapter here
       //this.delta;
     }
 
