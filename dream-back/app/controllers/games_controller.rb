@@ -11,11 +11,7 @@ class GamesController < ApplicationController
     end
 
     def create
-       
-        
-       
-        
-        @game = current_user.games.build(game_params)
+        @game = Game.create(game_params)   
         render json: @game, status: 200
     end
 
