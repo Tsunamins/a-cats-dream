@@ -1,8 +1,8 @@
-const baseUrl = 'http://localhost:3000/users';
+const userUrl = 'http://localhost:3000/users';
 const UsersAdapter = {
 
     getUsers: () => {
-        return fetch(baseUrl) 
+        return fetch(userUrl) 
         .then(res => res.json()) 
         
     },
@@ -14,7 +14,7 @@ const UsersAdapter = {
 
     createUser: (value) => {
      
-        return fetch(baseUrl, {
+        return fetch(userUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
@@ -27,7 +27,7 @@ const UsersAdapter = {
     },
 
     createLocalStorage: (value) => {
-        return fetch(baseUrl, {
+        return fetch(userUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
@@ -40,7 +40,7 @@ const UsersAdapter = {
     },
 
     updateUser: (id, value) => {
-        return fetch(`baseUrl/${id}`,{
+        return fetch(`userUrl/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -52,7 +52,7 @@ const UsersAdapter = {
     },
 
     deleteUser: (id) => {
-        return fetch(`baseUrl/${id}`,{
+        return fetch(`userUrl/${id}`,{
             method: 'DELETE'
 
         })
