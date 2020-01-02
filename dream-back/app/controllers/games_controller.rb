@@ -30,7 +30,7 @@ class GamesController < ApplicationController
 
     private
         def game_params
-            params.require(:game).permit(:game_save, :user_id) #for now
+            params.require(:game).permit(:game_save, :user_id, :playerX, :playerY)
         end
 
 
