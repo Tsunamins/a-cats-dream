@@ -108,11 +108,7 @@ class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.saveFile();
-        //let newGame = localStorage.getItem('game_save')
-        //console.log(newGame)
-        //GamesAdapter.createGame(newGame)
-        // let id = localStorage.getItem('user_id')
-        // GamesAdapter.createGame('A new game save', id)
+     
 
           
         }
@@ -160,17 +156,20 @@ class GameScene extends Phaser.Scene {
 
     }
 
+
     saveFile(){
         let file = {
             playerX: this.player.x,
             playerY: this.player.y
             
         }
-        localStorage.setItem('game_save', JSON.stringify(file))
-        //GamesAdapter.createGame(file)
+        let playerX = this.player.x;
+        let playerY = this.player.y;
+        localStorage.setItem('game_save', file)
+        ////GamesAdapter.createGame(file)
         let initialSave = localStorage.getItem('game_save')
         let id = localStorage.getItem('user_id')
-        GamesAdapter.createGame(initialSave, id)
+        GamesAdapter.createGame(id, playerX, playerY)
     }
 
 
