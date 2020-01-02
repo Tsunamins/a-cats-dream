@@ -11,8 +11,8 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
-      //prob put new game attached to adapter here
-      //this.delta;
+      
+      
     }
 
     
@@ -33,7 +33,13 @@ class GameScene extends Phaser.Scene {
         this.layer_roads = this.map.createStaticLayer('roads', this.tiles, 0, 0);
         this.layer_collision = this.map.createStaticLayer('buildings-trees', this.tiles, 0, 0);
         this.layer_collision.setCollisionByExclusion([-1], true, this);
+        console.log(this.scene)
+        console.log(this.game)
+        
+        
 
+        
+        
       
 
         //create player from Tiled definitions
@@ -99,6 +105,8 @@ class GameScene extends Phaser.Scene {
         //create input
         this.pointer = this.input.activePointer;
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.saveFile();
         }
 
     update(){
@@ -142,6 +150,16 @@ class GameScene extends Phaser.Scene {
             }
 
 
+    }
+
+    saveFile(){
+        let file = {
+            playerX: this.player.x,
+            playerY: this.player.y
+            
+        }
+        localStorage.setItem('game_save', JSON.stringify(file))
+        
     }
 
 
