@@ -3,8 +3,9 @@ import TitleScene from './src/game/TitleScene.js'
 
 
 let userInput;
-const userInfo = document.getElementById('user-info');
-userInfo.addEventListener('submit', establishUser);
+const userInfoForm = document.getElementById('user-info-form');
+userInfoForm.addEventListener('submit', establishUser);
+
 
 function establishUser(event){
   event.preventDefault(); 
@@ -13,7 +14,10 @@ function establishUser(event){
   UsersAdapter.createLocalStorage(userInput)
   
   const game = new Phaser.Game(config);
+  console.log(game)
 }
+
+
 
 
 
