@@ -12,14 +12,14 @@ const GamesAdapter = {
         .then(res => res.json())
     },
 
-    createGame: (value, id) => {
+    createGame: (id, playerX, playerY) => {
      
         return fetch(gameUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({'game_save': value, 'user_id': id})
+            body: JSON.stringify({'user_id': id, 'playerX': playerX, 'playerY': playerY})
         }) 
         .then(res => res.json())
         
