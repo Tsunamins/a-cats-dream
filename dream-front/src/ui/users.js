@@ -8,20 +8,22 @@ class Users {
     userElements(){
         //find or create user elements
         this.setCurrentUser = document.getElementById('current-user')
-        this.userEmailInput = document.getElementById('user-email')
+        //this.userEmailInput = document.getElementById('user-email')
 
         //update user elements and event
         this.updateUser = document.getElementById('update-form')
         this.updateEmail = document.getElementById('user-update')
+        this.userEmailField = document.getElementById('user-email')
     }
     createUser(){     
         UsersAdapter.createUser(this.currentUser).then(user => { 
             //setting this here will need to create a "logout button with localStorage.clear()"
         //    localStorage.setItem('user_id', user.id)
         //    localStorage.setItem('user_email', user.email)
+        console.log(user)
           
             this.render(this.currentUser) 
-            this.userEmailInput.value = ""
+            this.userEmailField.value = ""
         })       
     }
     render(value){    
