@@ -1,32 +1,32 @@
-const baseUrl = 'http://localhost:3000/games';
+const gameUrl = 'http://localhost:3000/games';
 const GamesAdapter = {
 
     getGames: () => {
-        return fetch(baseUrl) 
+        return fetch(gameUrl) 
         .then(res => res.json()) 
         
     },
 
     getGame: (id) => {
-        return fetch(`baseUrl/${id}`)
+        return fetch(`gameUrl/${id}`)
         .then(res => res.json())
     },
 
-    createGame: (value) => {
+    createGame: (value, id) => {
      
-        return fetch(baseUrl, {
+        return fetch(gameUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({'game_save': value})
+            body: JSON.stringify({'game_save': value, 'user_id': id})
         }) 
         .then(res => res.json())
         
     },
 
     createLocalStorage: (value) => {
-        return fetch(baseUrl, {
+        return fetch(gameUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
@@ -39,19 +39,19 @@ const GamesAdapter = {
     },
 
     updateGame: (id, value) => {
-        return fetch(`baseUrl/${id}`,{
+        return fetch(`gameUrl/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify({'game_save': value})
+            body: JSON.stringify({'game_save': value, 'user_id': id})
         })
         .then(res => res.json())
 
     },
 
     deleteGame: (id) => {
-        return fetch(`baseUrl/${id}`,{
+        return fetch(`gameUrl/${id}`,{
             method: 'DELETE'
 
         })
