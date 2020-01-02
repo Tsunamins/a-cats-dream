@@ -2,6 +2,7 @@ import Player from './Player.js';
 import Magic from './Magic.js';
 //import Enemy from './Enemy.js';
 
+
 class GameScene extends Phaser.Scene {
     constructor(){
         super({
@@ -107,6 +108,13 @@ class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.saveFile();
+        //let newGame = localStorage.getItem('game_save')
+        //console.log(newGame)
+        //GamesAdapter.createGame(newGame)
+        // let id = localStorage.getItem('user_id')
+        // GamesAdapter.createGame('A new game save', id)
+
+          
         }
 
     update(){
@@ -159,7 +167,10 @@ class GameScene extends Phaser.Scene {
             
         }
         localStorage.setItem('game_save', JSON.stringify(file))
-        
+        //GamesAdapter.createGame(file)
+        let initialSave = localStorage.getItem('game_save')
+        let id = localStorage.getItem('user_id')
+        GamesAdapter.createGame(initialSave, id)
     }
 
 
