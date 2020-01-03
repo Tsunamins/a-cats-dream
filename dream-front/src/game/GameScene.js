@@ -12,8 +12,7 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
-      
-      
+      this.enemies; 
     }
 
     
@@ -36,24 +35,13 @@ class GameScene extends Phaser.Scene {
         this.layer_collision.setCollisionByExclusion([-1], true, this);
         console.log(this.scene)
         console.log(this.game)
-        
-        
-
-        
-        
-      
 
         //create player from Tiled definitions
         this.map.findObject('objects', (obj) => {
             if (obj.type === 'player'){
                 this.player = new Player(this, obj.x, obj.y)
-            //this.player = this.physics.add.sprite(obj.x, obj.y, 'player')
-            }
-            //if this ends up in a separate player/class file need new Player(,,)
+            }  
         });
-
-        //create enemy
-       
 
         //player animations
         this.anims.create({
@@ -80,6 +68,35 @@ class GameScene extends Phaser.Scene {
           //create world collision, cat currently stopping at 600, will change all dimensions later with new map and config
         //   this.physics.add.existing(this.player);
         //   this.player.setCollideWorldBounds(true);
+
+        //add enemies group for now
+        this.enemies = this.physics.add.group({
+            key: 'enemy',
+            repeat: 4,
+          
+        });
+
+        //add enemy functions here for now
+        this.enemies.children.iterate(function (enemy){
+        
+            enemy.x = Phaser.Math.Between(100, 600);
+            enemy.y = Phaser.Math.Between(100, 300)
+            enemy.setCollideWorldBounds(true);
+            enemy.setBounce(1);
+            enemy.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
+           
+            enemy.health = 3;
+        });
+
+        //add enemy animations here for now
+        //+ remember actual animation occurs in update
+        this.anims.create({
+            //changed from left to walking to apply flipX
+            key: 'enemy-walk',
+            frames: this.anims.generateFrameNumbers('enemy', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: -1
+          });
 
 
 
@@ -153,24 +170,41 @@ class GameScene extends Phaser.Scene {
               }
             }
 
+            //update enemy animations
+            this.enemies.children.iterate(function (child){
+                child.setVelocity = 150;
+                child.anims.play('enemy-walk', true);
+          
+                
+              });
 
+            
     }
 
 
     saveFile(){
-        let file = {
-            playerX: this.player.x,
-            playerY: this.player.y
-            
-        }
+        
         let playerX = this.player.x;
         let playerY = this.player.y;
-        localStorage.setItem('game_save', file)
-        ////GamesAdapter.createGame(file)
-        let initialSave = localStorage.getItem('game_save')
+      
         let id = localStorage.getItem('user_id')
-        GamesAdapter.createGame(id, playerX, playerY)
+        GamesAdapter.createGame(id, playerX, playerY).then(game => {
+            localStorage.setItem('game_id', game.id)
+        })
+
     }
+
+    updateFile(){
+
+        let playerX = this.player.x;
+        let playerY = this.player.y;
+        
+        let game_id = localStorage.getItem('game_id')
+        GamesAdapter.updateGame(game_id, playerX, playerY)
+        console.log(playerX)
+    }
+    //need to add this to game over section
+    //this.updateFile()
 
 
 }
