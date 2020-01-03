@@ -6,6 +6,10 @@ let userInput;
 const userInfoForm = document.getElementById('user-info-form');
 userInfoForm.addEventListener('submit', establishUser);
 const userEmailInput = document.getElementById('user-email')
+const userUpdate = document.getElementById('update-form')
+userUpdate.addEventListener('submit', updateUserEmail)
+
+
 
 function establishUser(event){
   event.preventDefault(); 
@@ -17,7 +21,18 @@ function establishUser(event){
   console.log(game)
 }
 
-console.log(localStorage.game_save)
+function updateUserEmail(event){
+  event.preventDefault();
+  let id = localStorage.getItem('user_id')
+  let changeEmail = event.target[0].value
+  UsersAdapter.updateUser(id, changeEmail)
+  const updateDisplay = document.getElementById('user-display')
+  updateDisplay.innerText = `${changeEmail}`
+
+}
+
+
+
 
 
 

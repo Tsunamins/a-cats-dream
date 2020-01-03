@@ -32,7 +32,7 @@ class Users {
         const removeForm = document.getElementById("user-info-form")
         //adds an update form but doesn't work well with eventlisteners since it doesn't exist yet
         h3.innerHTML = `
-            <h3 id="user">${value}</h3>`;
+            <h3 id="user-display">${value}</h3>`;
         
         this.setCurrentUser.appendChild(h3);
         removeForm.style.display = 'none';
