@@ -13,9 +13,9 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
-      this.enemy;
       this.enemies;
-      this.enemiesViaConstructor;
+      this.fireflies;
+      
     }
 
     
@@ -26,7 +26,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('player', './assets/images/catspritesheet.png', { frameWidth: 35, frameHeight: 32 });
         this.load.image('magic', './assets/images/magicb.png')
         this.load.spritesheet('enemy', './assets/images/enemyspritesheet.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.spritesheet('fireflies', './assets/fireflyspritesheet.png', { frameWidth: 17, frameHeight: 17 });
+        this.load.spritesheet('firefly', './assets/images/fireflyspritesheet.png', { frameWidth: 17, frameHeight: 17 });
     }
 
     create(){
@@ -37,8 +37,7 @@ class GameScene extends Phaser.Scene {
         this.layer_roads = this.map.createStaticLayer('roads', this.tiles, 0, 0);
         this.layer_collision = this.map.createStaticLayer('buildings-trees', this.tiles, 0, 0);
         this.layer_collision.setCollisionByExclusion([-1], true, this);
-        console.log(this.scene)
-        console.log(this.game)
+    
 
         //create player from Tiled definitions
         this.map.findObject('objects', (obj) => {
@@ -86,9 +85,40 @@ class GameScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
           });
-          this.physics.add.collider(this.enemies, this.layer_collision)
 
-        //add fireflies group for now
+          this.physics.add.collider(this.enemies, this.layer_collision);
+
+
+
+        //add fireflies group
+        this.fireflies = this.physics.add.group({
+            key :'firefly',
+            repeat :6,  
+          });
+         
+
+          this.anims.create({
+            //changed from left to walking to apply flipX
+            key: 'firefly-float',
+            frames: this.anims.generateFrameNumbers('firefly', { start: 0, end: 5 }),
+            frameRate: 10,
+            repeat: -1
+          });
+        
+          this.fireflies.children.iterate(function (firefly){
+            //goal.setScale(0.6);
+            //goal.body.immovable = true;
+            firefly.x = Phaser.Math.Between(100, 600);
+            firefly.y = Phaser.Math.Between(100, 300)
+            firefly.setCollideWorldBounds(true);
+            firefly.setBounce(1);
+            firefly.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
+           
+        });
+
+        
+      
+
 
 
 
@@ -160,6 +190,14 @@ class GameScene extends Phaser.Scene {
           
                 
               });
+
+              this.fireflies.children.iterate(function(child){
+                child.setVelocity = 75;
+                child.anims.play('firefly-float', true);
+          
+                });
+
+            
            
             
             
