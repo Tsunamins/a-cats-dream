@@ -26,6 +26,7 @@ class GameScene extends Phaser.Scene {
         this.load.spritesheet('player', './assets/images/catspritesheet.png', { frameWidth: 35, frameHeight: 32 });
         this.load.image('magic', './assets/images/magicb.png')
         this.load.spritesheet('enemy', './assets/images/enemyspritesheet.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('fireflies', './assets/fireflyspritesheet.png', { frameWidth: 17, frameHeight: 17 });
     }
 
     create(){
@@ -44,7 +45,9 @@ class GameScene extends Phaser.Scene {
             if (obj.type === 'player'){
                 this.player = new Player(this, obj.x, obj.y)
             }  
-        });       
+        });
+        
+        this.physics.add.collider(this.player, this.layer_collision);     
           
           //firing key not working, frame error
           // this.anims.create({
@@ -83,9 +86,11 @@ class GameScene extends Phaser.Scene {
             frameRate: 10,
             repeat: -1
           });
+          this.physics.add.collider(this.enemies, this.layer_collision)
 
         //add fireflies group for now
-        
+
+
 
 
 

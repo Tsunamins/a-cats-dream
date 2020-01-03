@@ -5,15 +5,14 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
        
         this.scene.physics.world.enable(this);
+       
 
         this.scene.add.existing(this);
         
+        
         this.setCollideWorldBounds(true);
 
-        //these may or may not be needed
-        //this.physics.add.existing(this.player);
-       // scene.add.existing(this);
-        // scene.physics.add.existing(this);
+       
         this.scene.anims.create({
             //changed from left to walking to apply flipX instead
             key: 'walking',
