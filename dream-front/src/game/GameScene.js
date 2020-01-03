@@ -49,12 +49,14 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.layer_collision);     
           
           //firing key not working, frame error
-          // this.anims.create({
-          //   key: 'fire',
-          //   frames: [ { key: 'player', frame: 4 } ],
-          //   frames: 20
-          // });
+          this.anims.create({
+            key: 'fire',
+            frames: [ { key: 'player', frame: 4 } ],
+            framesRate: 20
+          });
 
+
+       
 
      
         //add enemies group for now
@@ -165,8 +167,8 @@ class GameScene extends Phaser.Scene {
           //firing section
           if (this.cursors.space.isDown){
             //firing animation for cat not working yet
-            // player.setVelocity(0);
-            // player.anims.play('fire', true);
+            this.player.setVelocity(0);
+            this.player.anims.play('fire', true);
 
            
                var magic = this.magics.get();
