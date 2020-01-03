@@ -26,6 +26,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
               frames: [ { key: 'player', frame: 3 } ],
               frameRate: 20
           });
+
+          this.scene.anims.create({
+            key: 'fire',
+            frames: [ { key: 'player', frame: 4 } ],
+            framesRate: 20
+          });
       
 
         
@@ -36,7 +42,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
 
     }
 
-    update(cursors){
+    //update(cursors)
+//update(cursors, scene, enemies)
+update(cursors, scene, enemies){
         if(cursors.left.isDown){
             this.flipX = true;
             this.setVelocityX(-160);
@@ -67,7 +75,39 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         this.setVelocityY(0); 
       };
 
+ 
+    
+      //**************************************** */
+      //firing section
+      if (cursors.space.isDown){
+        //firing animation for cat not working yet
+        this.setVelocity(0);
+        this.anims.play('fire', true);
+
+       
+           var magic = scene.magics.get();
+           magic.setActive(true);
+           magic.setVisible(true);
+           if (magic){   
+            magic.fire(this);
+            
+            
+            //doesn't work
+            //scene.physics.add.collider(magic, this.layer_collision);
+            
+            //works
+            scene.physics.add.overlap(magic, enemies, this.hitAnEnemy, null, scene);
+             
+          }
+        }
+
     }
+
+    hitAnEnemy(magic, enemy){
+        this.attack += 1;
+        //attackText.setText('Enemies banished: ' + attack);
+        enemy.disableBody(true, true);
+      };
 
 
     

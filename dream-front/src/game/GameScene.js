@@ -15,6 +15,8 @@ class GameScene extends Phaser.Scene {
       this.pointer;
       this.enemies;
       this.fireflies;
+      this.magics;
+      this.attack;
       
     }
 
@@ -49,11 +51,11 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.layer_collision);     
           
           //firing key not working, frame error
-          this.anims.create({
-            key: 'fire',
-            frames: [ { key: 'player', frame: 4 } ],
-            framesRate: 20
-          });
+        //   this.anims.create({
+        //     key: 'fire',
+        //     frames: [ { key: 'player', frame: 4 } ],
+        //     framesRate: 20
+        //   });
 
 
        
@@ -108,8 +110,7 @@ class GameScene extends Phaser.Scene {
           });
         
           this.fireflies.children.iterate(function (firefly){
-            //goal.setScale(0.6);
-            //goal.body.immovable = true;
+         
             firefly.x = Phaser.Math.Between(100, 600);
             firefly.y = Phaser.Math.Between(100, 300)
             firefly.setCollideWorldBounds(true);
@@ -137,6 +138,7 @@ class GameScene extends Phaser.Scene {
           //create magic
        this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
        this.physics.world.enable(this.magics);
+      
 
         //create cameras
         //will want to adjust this, or maybe works well enough with line startFollow
@@ -148,6 +150,8 @@ class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         this.saveFile();
+
+       
      
 
           
@@ -155,49 +159,29 @@ class GameScene extends Phaser.Scene {
 
     update(){
         //keyboard movement called from Player class
-        this.player.update(this.cursors);
+        this.player.update(this.cursors, this, this.enemies);
+      
 
         //mouse/touch event added in case mobile
         if(this.input.activePointer.isDown){
             this.player.x += (this.pointer.x - this.player.x) * 0.05;
             this.player.y += (this.pointer.y - this.player.y) * 0.05;   
         };
-        
-          //**************************************** */
-          //firing section
-          if (this.cursors.space.isDown){
-            //firing animation for cat not working yet
-            this.player.setVelocity(0);
-            this.player.anims.play('fire', true);
+  
 
-           
-               var magic = this.magics.get();
-               magic.setActive(true);
-               magic.setVisible(true);
-               if (magic){   
-                magic.fire(this.player);
-
-         
-                  //magic collisions not added yet
-                  //this.physics.add.overlap(magic, enemies, hitAnEnemy, null, this);
-                  
-                  //this.physics.add.collider(magic, layer_collision);
-              }
-            }
-
-            //update enemy animations
-            this.enemies.children.iterate(function (child){
-                child.setVelocity = 150;
-                child.anims.play('enemy-walk', true);
+        //update enemy animations
+        this.enemies.children.iterate(function (child){
+            child.setVelocity = 150;
+            child.anims.play('enemy-walk', true);
           
                 
-              });
+        });
 
-              this.fireflies.children.iterate(function(child){
-                child.setVelocity = 75;
-                child.anims.play('firefly-float', true);
-          
-                });
+        this.fireflies.children.iterate(function(child){
+            child.setVelocity = 75;
+            child.anims.play('firefly-float', true);
+    
+        });
 
             
            
@@ -206,6 +190,8 @@ class GameScene extends Phaser.Scene {
 
             
     }
+
+    
 
 
     saveFile(){
@@ -231,6 +217,7 @@ class GameScene extends Phaser.Scene {
     }
     //need to add this to game over section
     //this.updateFile()
+
 
 
 }
