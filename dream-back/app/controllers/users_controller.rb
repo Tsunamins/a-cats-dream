@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        @user = User.find_or_create_by(email: user_params[:email])
+     @user = User.find_or_create_by(email: user_params[:email])
 
       render json: @user, status: 200
       
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     private
         def user_params
-            params.require(:user).permit(:id, :email) #for now
+            params.require(:user).permit(:email) #for now
         end 
 
     
