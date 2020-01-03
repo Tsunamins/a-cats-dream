@@ -2,6 +2,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
         super(scene, x, y, 'player');
         this.scene = scene;
+
+        
         
        
         this.scene.physics.world.enable(this);
@@ -37,7 +39,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         
     }
 
+  
     create(){
+
        
 
     }
@@ -104,9 +108,12 @@ update(cursors, scene, enemies){
     }
 
     hitAnEnemy(magic, enemy){
-        this.attack += 1;
-        //attackText.setText('Enemies banished: ' + attack);
+       // this.attack += 1;
+       // console.log(this.attack)
+       // this.attackText.setText('Enemies banished: ' + this.attack);
+      
         enemy.disableBody(true, true);
+        this.events.emit('attack');
       };
 
 

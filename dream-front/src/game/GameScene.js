@@ -16,9 +16,14 @@ class GameScene extends Phaser.Scene {
       this.enemies;
       this.fireflies;
       this.magics;
-      this.attack;
+      
+      
       
     }
+
+    init () {
+        this.attack = 0;
+      }
 
     
 
@@ -143,7 +148,9 @@ class GameScene extends Phaser.Scene {
         //create cameras
         //will want to adjust this, or maybe works well enough with line startFollow
         //this.cameras.main.setSize(400, 300);
-       this.cameras.main.startFollow(this.player);
+       this.camera = this.cameras.main.startFollow(this.player);
+       console.log(this.camera)
+
         
         //create input
         this.pointer = this.input.activePointer;
@@ -151,8 +158,12 @@ class GameScene extends Phaser.Scene {
 
         this.saveFile();
 
-       
-     
+        this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '14px', fill: '#000',  backgroundColor: '#cebff5'});
+       // this.scoreText = this.add.text(12, 12, `Score: `, { fontSize: '32px', fill: '#fff' });
+       this.events.on('attack', () => {
+        this.attack++;
+        this.attackText.setText(`Enemies banished: ${this.attack}`);
+      });
 
           
         }
