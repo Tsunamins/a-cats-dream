@@ -2,6 +2,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     constructor(scene, x, y){
         super(scene, x, y, 'player');
         this.scene = scene;
+        
        
         this.scene.physics.world.enable(this);
 
@@ -13,8 +14,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
         //this.physics.add.existing(this.player);
        // scene.add.existing(this);
         // scene.physics.add.existing(this);
+        this.scene.anims.create({
+            //changed from left to walking to apply flipX instead
+            key: 'walking',
+            frames: this.scene.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
+            frameRate: 10,
+            repeat: -1
+          });
+      
+          this.scene.anims.create({
+              key: 'turn',
+              frames: [ { key: 'player', frame: 3 } ],
+              frameRate: 20
+          });
+      
 
         
+    }
+
+    create(){
+       
+
     }
 
     update(cursors){

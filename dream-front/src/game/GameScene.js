@@ -1,6 +1,7 @@
 import Player from './Player.js';
 import Magic from './Magic.js';
-//import Enemy from './Enemy.js';
+//import Enemies from './Enemies.js';
+import Enemy from './Enemy.js';
 
 
 class GameScene extends Phaser.Scene {
@@ -12,7 +13,9 @@ class GameScene extends Phaser.Scene {
       this.player; 
       this.cursors;
       this.pointer;
-      this.enemies; 
+      this.enemy;
+      this.enemies;
+      this.enemiesViaConstructor;
     }
 
     
@@ -41,22 +44,7 @@ class GameScene extends Phaser.Scene {
             if (obj.type === 'player'){
                 this.player = new Player(this, obj.x, obj.y)
             }  
-        });
-
-        //player animations
-        this.anims.create({
-            //changed from left to walking to apply flipX instead
-            key: 'walking',
-            frames: this.anims.generateFrameNumbers('player', { start: 0, end: 2 }),
-            frameRate: 10,
-            repeat: -1
-          });
-      
-          this.anims.create({
-              key: 'turn',
-              frames: [ { key: 'player', frame: 3 } ],
-              frameRate: 20
-          });
+        });       
           
           //firing key not working, frame error
           // this.anims.create({
@@ -65,10 +53,8 @@ class GameScene extends Phaser.Scene {
           //   frames: 20
           // });
 
-          //create world collision, cat currently stopping at 600, will change all dimensions later with new map and config
-        //   this.physics.add.existing(this.player);
-        //   this.player.setCollideWorldBounds(true);
 
+     
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
@@ -98,27 +84,27 @@ class GameScene extends Phaser.Scene {
             repeat: -1
           });
 
-
-
-
-    //create cameras for tracking player movement
-    //will want to adjust this, or maybe works well enough with line startFollow
-    //this.cameras.main.setSize(400, 300);
-    this.cameras.main.startFollow(this.player);
+        //add fireflies group for now
+        
 
 
 
 
-    /*******magic */
+ 
+    
 
-         /****working with original class */
+
+
+
+    
+          //create magic
        this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
        this.physics.world.enable(this.magics);
 
-       /*****working with es6 class ********/
-        //this seems to add the magic disc but does not propel it 
-        //this.magic = new Magic(this, this.player.x, this.player.y);
-        
+        //create cameras
+        //will want to adjust this, or maybe works well enough with line startFollow
+        //this.cameras.main.setSize(400, 300);
+       this.cameras.main.startFollow(this.player);
         
         //create input
         this.pointer = this.input.activePointer;
@@ -147,22 +133,14 @@ class GameScene extends Phaser.Scene {
             // player.setVelocity(0);
             // player.anims.play('fire', true);
 
-            /***** working with original class */
+           
                var magic = this.magics.get();
                magic.setActive(true);
                magic.setVisible(true);
                if (magic){   
                 magic.fire(this.player);
 
-                /*******working with es6 class */
-             //
-            //  this.magic.update(delta); //update needs to be called within update but cannot get delta value needed
-            //   this.magic.setActive(true);
-            //   this.magic.setVisible(true);
-      
-            //   if (this.magic){   
-            //       this.magic.fire(this.player);
-                  
+         
                   //magic collisions not added yet
                   //this.physics.add.overlap(magic, enemies, hitAnEnemy, null, this);
                   
@@ -177,6 +155,9 @@ class GameScene extends Phaser.Scene {
           
                 
               });
+           
+            
+            
 
             
     }
