@@ -8,7 +8,7 @@ const UsersAdapter = {
     },
 
     getUser: (id) => {
-        return fetch(`baseUrl/${id}`)
+        return fetch(`${userUrl}/${id}`)
         .then(res => res.json())
     },
 
@@ -40,7 +40,7 @@ const UsersAdapter = {
     },
 
     updateUser: (id, value) => {
-        return fetch(`userUrl/${id}`,{
+        return fetch(`${userUrl}/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -52,7 +52,7 @@ const UsersAdapter = {
     },
 
     deleteUser: (id) => {
-        return fetch(`userUrl/${id}`,{
+        return fetch(`${userUrl}/${id}`,{
             method: 'DELETE'
 
         })

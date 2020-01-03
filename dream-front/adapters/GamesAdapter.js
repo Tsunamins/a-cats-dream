@@ -8,7 +8,7 @@ const GamesAdapter = {
     },
 
     getGame: (id) => {
-        return fetch(`gameUrl/${id}`)
+        return fetch(`${gameUrl}/${id}`)
         .then(res => res.json())
     },
 
@@ -38,20 +38,20 @@ const GamesAdapter = {
         
     },
 
-    updateGame: (id, value) => {
-        return fetch(`gameUrl/${id}`,{
+    updateGame: (id, playerX, playerY) => {
+        return fetch(`${gameUrl}/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify({'game_save': value, 'user_id': id})
+            body: JSON.stringify({'playerX': playerX, 'playerY': playerY})
         })
         .then(res => res.json())
 
     },
 
     deleteGame: (id) => {
-        return fetch(`gameUrl/${id}`,{
+        return fetch(`${gameUrl}/${id}`,{
             method: 'DELETE'
 
         })
