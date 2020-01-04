@@ -16,6 +16,7 @@ function establishUser(event){
   event.preventDefault(); 
   userInput = event.target[0].value
   const user = new Users(userEmailInput.value)
+  const gameUI = new Games();
   UsersAdapter.createLocalStorage(userInput)
  
   const game = new Phaser.Game(config);
