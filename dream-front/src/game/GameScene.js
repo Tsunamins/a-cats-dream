@@ -144,8 +144,8 @@ class GameScene extends Phaser.Scene {
 
         this.saveFile();
 
-        this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '14px', fill: '#000',  backgroundColor: '#cebff5'});
-        this.collectText = this.add.text(0, 0, `Fireflies collected: ${this.collectff}`, { fontSize: '14px', fill: '#000',  backgroundColor: '#cebff5'});
+        this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
+        this.collectText = this.add.text(0, 0, `Fireflies collected: ${this.collectff}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
        // this.scoreText = this.add.text(12, 12, `Score: `, { fontSize: '32px', fill: '#fff' });
        this.events.on('attack', () => {
         this.attack++;
@@ -190,7 +190,7 @@ class GameScene extends Phaser.Scene {
 
             
     
-     this.attackText.setX(this.camera.midPoint.x + 225);
+     this.attackText.setX(this.camera.midPoint.x + 100);
      this.attackText.setY(this.camera.midPoint.y - 300);
      this.collectText.setX(this.camera.midPoint.x - 375)
      this.collectText.setY(this.camera.midPoint.y - 300)
