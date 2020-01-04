@@ -1,6 +1,16 @@
 class StatsController < ApplicationController
     def index
-        @stats = Stat.all
+        @user = User.find_by(id: params[:id])
+        #@games = Game.all
+        if params[:user_id]
+            @user = User.find_by(id: params[:user_id])
+            @stats = @user.stats
+      
+        else 
+            @stats = Stat.all 
+        end
+
+        #@stats = Stat.all
         render json: @stats, status: 200 
     end
 
