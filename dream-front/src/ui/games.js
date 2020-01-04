@@ -14,7 +14,7 @@ class Games {
         UsersAdapter.getUserStats(id).then(stats => {
             stats.forEach(stat => 
             this.arrayAllStats.push(stat))
-            stats.forEach(stat =>{
+            this.arrayAllStats.slice(1).slice(-5).forEach(stat =>{
                 this.arrayFF.push(stat.fireflies_collected)
                 this.arrayEn.push(stat.enemies_defeated)
                 const li = document.createElement('li')
