@@ -28,7 +28,7 @@ class GameScene extends Phaser.Scene {
 
     preload(){ 
         this.load.image('tiles', './assets/maps/pinktilesheet.png');
-        this.load.tilemapTiledJSON('map', './assets/maps/1stworkingmap.json');
+        this.load.tilemapTiledJSON('map', './assets/maps/largermap.json');
         this.load.spritesheet('player', './assets/images/catspritesheet.png', { frameWidth: 35, frameHeight: 32 });
         this.load.image('magic', './assets/images/magicb.png')
         this.load.spritesheet('enemy', './assets/images/enemyspritesheet.png', { frameWidth: 32, frameHeight: 32 });
