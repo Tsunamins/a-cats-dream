@@ -51,6 +51,11 @@ const UsersAdapter = {
 
     },
 
+    getUserStats: (id) => {
+        return fetch(`${userUrl}/${id}/stats`)
+        .then(res => res.json())
+    },
+
     deleteUser: (id) => {
         return fetch(`${userUrl}/${id}`,{
             method: 'DELETE'

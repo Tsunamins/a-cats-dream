@@ -29,14 +29,16 @@ class Users {
     render(value){    
         const h3 = document.createElement('h3');
         const userFunctions = document.getElementById('user-functions')
+        const gameFunctions = document.getElementById('game-functions')
         const removeForm = document.getElementById("user-info-form")
-        //adds an update form but doesn't work well with eventlisteners since it doesn't exist yet
+        
         h3.innerHTML = `
             <h3 id="user-display">${value}</h3>`;
         
         this.setCurrentUser.appendChild(h3);
         removeForm.style.display = 'none';
         userFunctions.style.visibility = 'visible';
+        gameFunctions.style.visibility = 'visible';
     }
 
    

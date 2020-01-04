@@ -23,11 +23,14 @@
         <input id="update-button" type="submit" value="Update">
       </form>
       
-         <button id="delete" class="delete">Delete</button>
          <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
       </div>
 
     <div id="game-functions">
+      <h3 id="recent-games">Recent Games</h3>
+      <ul id="game-list">
+
+      </ul>
 
 
 
@@ -46,6 +49,7 @@
  
   
   <script src="src/ui/users.js"></script>
+  <script src="src/ui/games.js"></script>
   <script src="adapters/UsersAdapter.js"></script>
   <script src="adapters/GamesAdapter.js"></script>
   <script src="adapters/StatsAdapter.js"></script>
