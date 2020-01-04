@@ -17,9 +17,9 @@ function establishUser(event){
   userInput = event.target[0].value
   const user = new Users(userEmailInput.value)
   UsersAdapter.createLocalStorage(userInput)
-  
+ 
   const game = new Phaser.Game(config);
-  console.log(game)
+  
 }
 
 function updateUserEmail(event){
@@ -60,16 +60,14 @@ let config = {
   },
     scene: [TitleScene, 
     GameScene,]
-    // extend:{
-    //   bullets: null
-    // }
+   
   };
 
   
-  //game.scene.add('TitleScene', titleScene);
+  
   //game.scene.add('GameScene', gameScene);
 
-  //const ui = new UI();
+
 
 
  

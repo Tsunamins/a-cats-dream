@@ -23,8 +23,9 @@ class TitleScene extends Phaser.Scene {
 
      
        this.input.once('pointerdown', function () {
-        
+       
         this.scene.start('GameScene');
+        
     }, this);
        
     }
