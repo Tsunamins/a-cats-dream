@@ -40,10 +40,15 @@ class GameScene extends Phaser.Scene {
         this.map = this.make.tilemap({key: 'map'});
         this.tiles = this.map.addTilesetImage('pinktilesheet', 'tiles');
         this.layer_background = this.map.createStaticLayer('background', this.tiles, 0, 0);
+        this.layer_background.setOrigin(0,0);
         this.layer_roads = this.map.createStaticLayer('roads', this.tiles, 0, 0);
+        this.layer_roads.setOrigin(0,0);
         this.layer_collision = this.map.createStaticLayer('buildings-trees', this.tiles, 0, 0);
+        this.layer_collision.setOrigin(0,0);
         this.layer_collision.setCollisionByExclusion([-1], true, this);
     
+
+        this.physics.world.setBounds(0, 0, 960, 640);
 
         //create player from Tiled definitions
         this.map.findObject('objects', (obj) => {
@@ -120,9 +125,11 @@ class GameScene extends Phaser.Scene {
       
         //create cameras
         //will want to adjust this, or maybe works well enough with line startFollow
-        //this.cameras.main.setSize(400, 300);
-       this.camera = this.cameras.main.startFollow(this.player);
-       
+       // this.cameras.main.setSize(800, 600);
+
+        this.camera = this.cameras.main.startFollow(this.player);
+        this.cameras.main.followOffset.set(-200, 100);
+        this.cameras.main.setBounds(0, 0, 960, 640);
         
         //create input
         this.pointer = this.input.activePointer;
