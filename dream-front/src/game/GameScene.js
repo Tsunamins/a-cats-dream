@@ -16,9 +16,7 @@ class GameScene extends Phaser.Scene {
       this.enemies;
       this.fireflies;
       this.magics;
-      
-      
-      
+           
     }
 
     init () {
@@ -27,8 +25,6 @@ class GameScene extends Phaser.Scene {
         this.gameFF = 0;
         this.gameEnemies = 0;
       }
-
-    
 
     preload(){ 
         this.load.image('tiles', './assets/maps/pinktilesheet.png');
@@ -111,7 +107,6 @@ class GameScene extends Phaser.Scene {
             firefly.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
            
         });
-        console.log(this.fireflies.children.entries.length)
 
         this.physics.add.collider(this.enemies, this.goals);
         this.physics.add.collider(this.enemies, this.enemies);
@@ -119,30 +114,15 @@ class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.enemies, this.layer_collision);
         this.physics.add.overlap(this.player, this.fireflies, this.collectFirefly, null, this);
 
-
-
-
-
-
-
- 
-    
-
-
-
-
-    
           //create magic
        this.magics = this.physics.add.group({ classType: Magic, runChildUpdate: true });
        this.physics.world.enable(this.magics);
       
-
         //create cameras
         //will want to adjust this, or maybe works well enough with line startFollow
         //this.cameras.main.setSize(400, 300);
        this.camera = this.cameras.main.startFollow(this.player);
-       console.log(this.camera)
-
+       
         
         //create input
         this.pointer = this.input.activePointer;
@@ -153,22 +133,17 @@ class GameScene extends Phaser.Scene {
         this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
         this.collectText = this.add.text(0, 0, `Fireflies collected: ${this.collectff}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
        // this.scoreText = this.add.text(12, 12, `Score: `, { fontSize: '32px', fill: '#fff' });
-       this.events.on('attack', () => {
-        this.attack++;
-        this.attackText.setText(`Enemies banished: ${this.attack}`);
-      });
+        this.events.on('attack', () => {
+            this.attack++;
+            this.attackText.setText(`Enemies banished: ${this.attack}`);
+        });
 
-     
-
-      this.events.on('collectff', () => {
+        this.events.on('collectff', () => {
           this.collectff++;
           this.collectText.setText(`Fireflies collected: ${this.collectff}`);
       })
 
-          console.log(this.cameras.main)
-
-     
-        }
+    }
 
     update(){
 
@@ -197,9 +172,7 @@ class GameScene extends Phaser.Scene {
             child.anims.play('firefly-float', true);
     
         });
-
-            
-    
+  
      this.attackText.setX(this.camera.midPoint.x + 100);
      this.attackText.setY(this.camera.midPoint.y - 300);
      this.collectText.setX(this.camera.midPoint.x - 375)
@@ -210,47 +183,23 @@ class GameScene extends Phaser.Scene {
         this.updateFile();
         return this.gameOver();
       };  
-      
-    //   this.events.on('game-over', () => {
-    //     return this.gameOver();
-    // })
-
-            
+                  
     }
 
     gameOver() {
-
-  
-
         // initiated game over sequence
         this.isTerminating = true;
-        
-        // shake camera
-        this.cameras.main.shake(500);
-      
-        // listen for event completion
-        this.cameras.main.on('camerashakecomplete', function(camera, effect){
-      
-          // fade out
-          this.cameras.main.fade(500);
-        }, this);
-      
-       // adapter.createStat(score, hit);
-      
+
+        // fade out
+        this.cameras.main.fade(500);    
         this.cameras.main.on('camerafadeoutcomplete', function(camera, effect){
           //will prob need to change this to a gameOver Scene, and allow new game to be made based on current user and call to adapter
           this.scene.start('TitleScene');
     
-        }, this);
-      
-      
+        }, this);      
       };
 
-    
-
-
-    saveFile(){
-        
+    saveFile(){      
         let playerX = this.player.x;
         let playerY = this.player.y;
       
@@ -263,12 +212,9 @@ class GameScene extends Phaser.Scene {
         StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
             localStorage.setItem('stat_id', stat.id)
         })
-        
-
     }
 
     updateFile(){
-
         let playerX = this.player.x;
         let playerY = this.player.y;
         
@@ -276,20 +222,14 @@ class GameScene extends Phaser.Scene {
         GamesAdapter.updateGame(game_id, playerX, playerY)
 
         let stat_id = localStorage.getItem('stat_id')
-        StatsAdapter.updateStat(stat_id, this.attack, this.collectff)
-
-       
+        StatsAdapter.updateStat(stat_id, this.attack, this.collectff)     
     }
-    //need to add this to game over section
-    //this.updateFile()
+   
     collectFirefly(player, fireflies){
         fireflies.disableBody(true, true); //remove from screen
        
-        this.events.emit('collectff');
-       
-  };
-
-
+        this.events.emit('collectff');     
+    };
 }
 
 export default GameScene
