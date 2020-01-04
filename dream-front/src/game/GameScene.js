@@ -54,7 +54,7 @@ class GameScene extends Phaser.Scene {
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
-            repeat: Phaser.Math.Between(10, 20),
+            repeat: Phaser.Math.Between(9, 9),
           
         });
 
@@ -85,7 +85,7 @@ class GameScene extends Phaser.Scene {
         //add fireflies group
         this.fireflies = this.physics.add.group({
             key:'firefly',
-            repeat: Phaser.Math.Between(10, 20),  
+            repeat: Phaser.Math.Between(9, 9),  
           });
 
         this.gameFF = this.fireflies.children.entries.length;
