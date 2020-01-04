@@ -166,6 +166,8 @@ class GameScene extends Phaser.Scene {
       })
 
           console.log(this.cameras.main)
+
+     
         }
 
     update(){
@@ -257,6 +259,12 @@ class GameScene extends Phaser.Scene {
             localStorage.setItem('game_id', game.id)
         })
 
+        let game_id = localStorage.getItem('game_id')
+        StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
+            localStorage.setItem('stat_id', stat.id)
+        })
+        
+
     }
 
     updateFile(){
@@ -266,6 +274,10 @@ class GameScene extends Phaser.Scene {
         
         let game_id = localStorage.getItem('game_id')
         GamesAdapter.updateGame(game_id, playerX, playerY)
+
+        let stat_id = localStorage.getItem('stat_id')
+        StatsAdapter.updateStat(stat_id, this.attack, this.collectff)
+
        
     }
     //need to add this to game over section
