@@ -1,26 +1,62 @@
 # README
-What do cat's dream about during a cat nap?  A game where a cat goes to a dream land collects fireflies and defeats enemies.
+What do cat's dream about during a cat nap?  A game where a cat goes to a dream land collects fireflies and defeats enemies.  This is Javascript frontend with a Rails backend API project for the web development curriculum of learn.co.
+
+To Install:
+Will probably need to run the following commands:
+
+from root directory: 
+npm install http-server -g
+ -or-
+sudo npm install http-server -g
+
+from dream-back directory:
+bundle install
+
+rails db:seed
+
+rails s
+
+then visit localhost:8080
+
+To Play the game:
+Enter an email address, or some name
+
+Click the main Title Screen to Play
+
+Press the arrow keys to move the cat around
+
+Press the space bar to use "magic" on the "green enemies"
+
+Move the cat around into the floating "fireflies" to collect them
+
+The game will end and return to the Title Scene once 10 enemies are gone and 10 fireflies are collected.
+(These are the game settings for the project review so that it won't be too tedious)
+
+Currently to start a new game, have to click on "Logout or Start New Game"
+Will probably modify that in the future.
+
+Credits or Acknowledgements:
+The actual game portion of this program was made with the Phaser3 Game engine.  Thanks to it's existence, and a very simple intro tutorial and examples page, I could create a game without losing my mind, or doing something very mundane to mock a user interface for a game for a project. https://phaser.io/phaser3
+
+I decided I wanted to make my own game art and found the use of PixilArt and Krita helpful in making images and spritesheets. https://www.pixilart.com/draw# https://krita.org/en/
+
+I made my tilemap and export files with Tiled, very handy and works well with Phaser, in particular. https://www.mapeditor.org/
+
+I also consulted a multitude of tutorial resources, several from zenva's html5 game development series, https://academy.zenva.com/
+
+And before realizing I could use a game engine to make all of this simpler I learned a great deal about vanilla javascript game making from several tutorial resources, including one on Tiled, which fortunately lead me to phaser3:
+ For Tiled: 
+ GamesFromScratch https://www.youtube.com/channel/UCr-5TdGkKszdbboXXsFZJTQ
+ For building Javascript game engines:
+ JavaScript Teacher https://www.youtube.com/channel/UCzQvgRgjjxhzEORvefubDPw
+ Technologies4me https://www.youtube.com/channel/UCHpHBzk4fz3oeQ31hmCreGg
+ PothOnProgramming https://www.youtube.com/channel/UCdS3ojA8RL8t1r18Gj1cl6w
 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
 
-* Database creation
 
-* Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
