@@ -4,10 +4,14 @@ What do cat's dream about during a cat nap?  A game where a cat goes to a dream 
 To Install:
 Will probably need to run the following commands:
 
-from root directory: 
+from project's root directory: 
 npm install http-server -g
  -or-
 sudo npm install http-server -g
+
+http-server
+
+navigate to localhost:8080
 
 from dream-back directory:
 bundle install
@@ -16,7 +20,9 @@ rails db:seed
 
 rails s
 
-then visit localhost:8080
+navigate to localhost:3030 for api views
+
+
 
 To Play the game:
 Enter an email address, or some name
