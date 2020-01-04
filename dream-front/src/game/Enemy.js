@@ -31,6 +31,14 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite{
 
     }
 
+    update(){
+        this.setVelocity = 150;
+        this.anims.play('enemy-walk', true);
+      
+            
+        
+    }
+
     //create(){ 
         
 

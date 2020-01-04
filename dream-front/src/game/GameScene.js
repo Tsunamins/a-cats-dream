@@ -24,6 +24,8 @@ class GameScene extends Phaser.Scene {
     init () {
         this.attack = 0;
         this.collectff = 0;
+        this.gameFF = 0;
+        this.gameEnemies = 0;
       }
 
     
@@ -56,9 +58,11 @@ class GameScene extends Phaser.Scene {
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
-            repeat: 4,
+            repeat: Phaser.Math.Between(10, 20),
           
         });
+
+        this.gameEnemies = this.enemies.children.entries.length
 
         //add enemy functions here for now
         this.enemies.children.iterate(function (enemy){
@@ -84,9 +88,11 @@ class GameScene extends Phaser.Scene {
 
         //add fireflies group
         this.fireflies = this.physics.add.group({
-            key :'firefly',
-            repeat :6,  
+            key:'firefly',
+            repeat: Phaser.Math.Between(10, 20),  
           });
+
+        this.gameFF = this.fireflies.children.entries.length;
           
           this.anims.create({
             //changed from left to walking to apply flipX
@@ -105,7 +111,7 @@ class GameScene extends Phaser.Scene {
             firefly.setVelocity(Phaser.Math.Between(20, 60), Phaser.Math.Between(20, 60));
            
         });
-
+        console.log(this.fireflies.children.entries.length)
 
         this.physics.add.collider(this.enemies, this.goals);
         this.physics.add.collider(this.enemies, this.enemies);
@@ -152,17 +158,19 @@ class GameScene extends Phaser.Scene {
         this.attackText.setText(`Enemies banished: ${this.attack}`);
       });
 
-      console.log(this.attackText)
+     
 
       this.events.on('collectff', () => {
           this.collectff++;
           this.collectText.setText(`Fireflies collected: ${this.collectff}`);
       })
 
-          
+          console.log(this.cameras.main)
         }
 
     update(){
+
+        //if(this.isTerminating) return;
         //keyboard movement called from Player class
         this.player.update(this.cursors, this, this.enemies);
       
@@ -195,10 +203,46 @@ class GameScene extends Phaser.Scene {
      this.collectText.setX(this.camera.midPoint.x - 375)
      this.collectText.setY(this.camera.midPoint.y - 300)
 
-            
+     if (this.attack === this.gameEnemies && this.collectff === this.gameFF){
+        //this.events.emit('game-over');
+        this.updateFile();
+        return this.gameOver();
+      };  
+      
+    //   this.events.on('game-over', () => {
+    //     return this.gameOver();
+    // })
 
             
     }
+
+    gameOver() {
+
+  
+
+        // initiated game over sequence
+        this.isTerminating = true;
+        
+        // shake camera
+        this.cameras.main.shake(500);
+      
+        // listen for event completion
+        this.cameras.main.on('camerashakecomplete', function(camera, effect){
+      
+          // fade out
+          this.cameras.main.fade(500);
+        }, this);
+      
+       // adapter.createStat(score, hit);
+      
+        this.cameras.main.on('camerafadeoutcomplete', function(camera, effect){
+          //will prob need to change this to a gameOver Scene, and allow new game to be made based on current user and call to adapter
+          this.scene.start('TitleScene');
+    
+        }, this);
+      
+      
+      };
 
     
 
@@ -228,9 +272,7 @@ class GameScene extends Phaser.Scene {
     //this.updateFile()
     collectFirefly(player, fireflies){
         fireflies.disableBody(true, true); //remove from screen
-        //Add a score feature for data purposes
-       //score += 1;
-        //scoreText.setText('Fireflies collected: ' + score);
+       
         this.events.emit('collectff');
        
   };
