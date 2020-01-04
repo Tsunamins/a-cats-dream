@@ -23,6 +23,7 @@ class GameScene extends Phaser.Scene {
 
     init () {
         this.attack = 0;
+        this.collectff = 0;
       }
 
     
@@ -52,20 +53,6 @@ class GameScene extends Phaser.Scene {
                 this.player = new Player(this, obj.x, obj.y)
             }  
         });
-        
-        this.physics.add.collider(this.player, this.layer_collision);     
-          
-          //firing key not working, frame error
-        //   this.anims.create({
-        //     key: 'fire',
-        //     frames: [ { key: 'player', frame: 4 } ],
-        //     framesRate: 20
-        //   });
-
-
-       
-
-     
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
@@ -95,17 +82,12 @@ class GameScene extends Phaser.Scene {
             repeat: -1
           });
 
-          this.physics.add.collider(this.enemies, this.layer_collision);
-
-
-
         //add fireflies group
         this.fireflies = this.physics.add.group({
             key :'firefly',
             repeat :6,  
           });
-         
-
+          
           this.anims.create({
             //changed from left to walking to apply flipX
             key: 'firefly-float',
@@ -124,8 +106,12 @@ class GameScene extends Phaser.Scene {
            
         });
 
-        
-      
+
+        this.physics.add.collider(this.enemies, this.goals);
+        this.physics.add.collider(this.enemies, this.enemies);
+        this.physics.add.collider(this.player, this.layer_collision); 
+        this.physics.add.collider(this.enemies, this.layer_collision);
+        this.physics.add.overlap(this.player, this.fireflies, this.collectFirefly, null, this);
 
 
 
@@ -159,11 +145,19 @@ class GameScene extends Phaser.Scene {
         this.saveFile();
 
         this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '14px', fill: '#000',  backgroundColor: '#cebff5'});
+        this.collectText = this.add.text(0, 0, `Fireflies collected: ${this.collectff}`, { fontSize: '14px', fill: '#000',  backgroundColor: '#cebff5'});
        // this.scoreText = this.add.text(12, 12, `Score: `, { fontSize: '32px', fill: '#fff' });
        this.events.on('attack', () => {
         this.attack++;
         this.attackText.setText(`Enemies banished: ${this.attack}`);
       });
+
+      console.log(this.attackText)
+
+      this.events.on('collectff', () => {
+          this.collectff++;
+          this.collectText.setText(`Fireflies collected: ${this.collectff}`);
+      })
 
           
         }
@@ -195,8 +189,12 @@ class GameScene extends Phaser.Scene {
         });
 
             
-           
-            
+    
+     this.attackText.setX(this.camera.midPoint.x + 225);
+     this.attackText.setY(this.camera.midPoint.y - 300);
+     this.collectText.setX(this.camera.midPoint.x - 375)
+     this.collectText.setY(this.camera.midPoint.y - 300)
+
             
 
             
@@ -224,11 +222,18 @@ class GameScene extends Phaser.Scene {
         
         let game_id = localStorage.getItem('game_id')
         GamesAdapter.updateGame(game_id, playerX, playerY)
-        console.log(playerX)
+       
     }
     //need to add this to game over section
     //this.updateFile()
-
+    collectFirefly(player, fireflies){
+        fireflies.disableBody(true, true); //remove from screen
+        //Add a score feature for data purposes
+       //score += 1;
+        //scoreText.setText('Fireflies collected: ' + score);
+        this.events.emit('collectff');
+       
+  };
 
 
 }
