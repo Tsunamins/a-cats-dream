@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   resources :users
   resources :games
   resources :stats
+
+  resources :users do
+    resources :games
+  end
  
 
   
