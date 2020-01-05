@@ -7,7 +7,10 @@ class Users {
         //this.gameUI();
         this.arrayFF = [];
         this.arrayEn = [];
+        this.arrayFF5 = [];
+        this.arrayEn5 = [];
         this.arrayAllStats = [];
+        this.arrayRecentStats = [];
         
     }
 
@@ -46,14 +49,22 @@ class Users {
          
             stats.forEach(stat => 
             this.arrayAllStats.push(stat))
+
+            stats.forEach(stat =>
+            this.arrayRecentStats.push(stat))
             
         
-            this.arrayAllStats.slice(1).slice(-5).forEach(stat =>{
-                this.arrayFF.push(stat.fireflies_collected)
-                this.arrayEn.push(stat.enemies_defeated)
+            this.arrayRecentStats.slice(1).slice(-5).forEach(stat =>{
+                this.arrayFF5.push(stat.fireflies_collected)
+                this.arrayEn5.push(stat.enemies_defeated)
                 const li = document.createElement('li')
                 li.innerText = `Fireflies collected: ${stat.fireflies_collected}` + ` Enemies Banished: ${stat.enemies_defeated}`
                 this.gameList.appendChild(li)
+            })
+
+            this.arrayAllStats.forEach(stat => {
+                this.arrayFF.push(stat.fireflies_collected)
+                this.arrayEn.push(stat.enemies_defeated)
             })
         
         const fireFlyH3 = document.createElement('h3')
@@ -90,6 +101,11 @@ class Users {
         userFunctions.style.visibility = 'visible';
         gameFunctions.style.visibility = 'visible';
     }
+
+    allUserStats(){
+
+    }
+
 
    
 }
