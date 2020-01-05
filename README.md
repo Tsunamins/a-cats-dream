@@ -1,7 +1,7 @@
 # README
 What do cat's dream about during a cat nap?  A game where a cat goes to a dream land collects fireflies and defeats enemies.  This is Javascript frontend with a Rails backend API project for the web development curriculum of learn.co.
 
-To Install:
+## To Install:
 Will probably need to run the following commands:
 
 from project's root directory: 
@@ -11,7 +11,7 @@ sudo npm install http-server -g
 
 http-server
 
-navigate to localhost:8080
+navigate to localhost:8080/dream-front
 
 from dream-back directory:
 bundle install
@@ -20,11 +20,11 @@ rails db:seed
 
 rails s
 
-navigate to localhost:3030 for api views
+navigate to localhost:3000 for api views
 
 
 
-To Play the game:
+## To Play the game:
 Enter an email address, or some name
 
 Click the main Title Screen to Play
@@ -35,13 +35,15 @@ Press the space bar to use "magic" on the "green enemies"
 
 Move the cat around into the floating "fireflies" to collect them
 
-The game will end and return to the Title Scene once 10 enemies are gone and 10 fireflies are collected.
-(These are the game settings for the project review so that it won't be too tedious)
+For code review, the game is currently set up to end once 10 fireflies are caught and 10 enemies are gone
+and return to the title screen, the original settings puts more enemies and fireflies on the map.
 
-Currently to start a new game, have to click on "Logout or Start New Game"
-Will probably modify that in the future.
+Currently, to start a new game, click the button logout or start new game,
+plan to modify this in this future with a GameOver scene or see what else
 
-Credits or Acknowledgements:
+
+
+## Credits or Acknowledgements:
 The actual game portion of this program was made with the Phaser3 Game engine.  Thanks to it's existence, and a very simple intro tutorial and examples page, I could create a game without losing my mind, or doing something very mundane to mock a user interface for a game for a project. https://phaser.io/phaser3
 
 I decided I wanted to make my own game art and found the use of PixilArt and Krita helpful in making images and spritesheets. https://www.pixilart.com/draw# https://krita.org/en/
