@@ -59,6 +59,8 @@ class GameScene extends Phaser.Scene {
                 this.player = new Player(this, obj.x, obj.y)
             }  
         });
+
+        //create game in backend
         let playerX = this.player.x;
         let playerY = this.player.y;
         let user_id = localStorage.getItem('user_id');
@@ -205,8 +207,6 @@ class GameScene extends Phaser.Scene {
      this.collectText.setY(this.camera.midPoint.y - 300)
 
      if (this.attack === this.gameEnemies && this.collectff === this.gameFF){
-        //this.events.emit('game-over');
-        //this.updateFile();
         
        
         return this.gameOver();
@@ -229,6 +229,7 @@ class GameScene extends Phaser.Scene {
         }, this);   
         
         this.updateGame();
+
       };
 
       collectFirefly(player, fireflies){
@@ -237,27 +238,8 @@ class GameScene extends Phaser.Scene {
         this.events.emit('collectff');     
         };
 
-    // saveFile(){      
-    //     let playerX = this.player.x;
-    //     let playerY = this.player.y;
-      
-    //     let user_id = localStorage.getItem('user_id');
-    //     console.log(user_id);
-    //     GamesAdapter.createGame(user_id, playerX, playerY).then(game => {
-    //        // console.log(game);
-    //         localStorage.setItem('game_id', game.id);
-    //        // console.log(localStorage.getItem('game_id'));
-    //         //console.log(user_id);
-    //     });
-
-    //     let game_id = localStorage.getItem('game_id');
-    //     //console.log(game_id);
-    //     StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
-    //         localStorage.setItem('stat_id', stat.id);
-            
-    //     });
-    // }
-
+    
+        //may want to use this later
     createGame(){
         let playerX = this.player.x;
         let playerY = this.player.y;
@@ -269,13 +251,8 @@ class GameScene extends Phaser.Scene {
        
 
     }
-    createStat(){
-        let game_id = localStorage.getItem('game_id');
-        StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
-            localStorage.setItem('stat_id', stat.id);
-            
-        });
-    }
+    
+    //using this
     updateGame(){
         let playerX = this.player.x;
         let playerY = this.player.y;
@@ -283,22 +260,7 @@ class GameScene extends Phaser.Scene {
         GamesAdapter.updateGame(game_id, playerX, playerY, this.attack, this.collectff)
     }
 
-    updateStat(){
-        let stat_id = localStorage.getItem('stat_id')
-        StatsAdapter.updateStat(stat_id, this.attack, this.collectff) 
-
-    }
-
-    // updateFile(){
-    //     let playerX = this.player.x;
-    //     let playerY = this.player.y;
-        
-    //     let game_id = localStorage.getItem('game_id')
-    //     GamesAdapter.updateGame(game_id, playerX, playerY)
-
-    //     let stat_id = localStorage.getItem('stat_id')
-    //     StatsAdapter.updateStat(stat_id, this.attack, this.collectff)     
-    // }
+    
    
     
 }

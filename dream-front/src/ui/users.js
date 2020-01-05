@@ -26,12 +26,9 @@ class Users {
     }
     createUser(){     
         UsersAdapter.createUser(this.currentUser).then(user => { 
-            //setting this here will need to create a "logout button with localStorage.clear()"
+            console.log(user)
             localStorage.setItem('user_id', user.id)
-        //    localStorage.setItem('user_email', user.email)
-        this.users.push(new User(user))
-        console.log(user)
-          
+       
             this.render(this.currentUser) 
             this.userEmailField.value = ""
             this.gameUI();
