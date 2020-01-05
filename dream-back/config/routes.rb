@@ -8,9 +8,6 @@ Rails.application.routes.draw do
     resources :games
   end
 
-  resources :users do 
-    resources :stats
-  end
  
 
   

@@ -38,7 +38,7 @@ class GamesController < ApplicationController
 
     private
         def game_params
-            params.require(:game).permit(:game_save, :user_id, :playerX, :playerY)
+            params.require(:game).permit(:user_id, :playerX, :playerY, :fireflies_collected, :enemies_defeated)
         end
 
 

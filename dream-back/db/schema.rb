@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_02_203335) do
+ActiveRecord::Schema.define(version: 2020_01_05_012238) do
 
   create_table "games", force: :cascade do |t|
-    t.string "game_save"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "playerX"
     t.float "playerY"
+    t.integer "fireflies_collected"
+    t.integer "enemies_defeated"
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 
