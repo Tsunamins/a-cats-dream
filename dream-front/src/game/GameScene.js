@@ -24,6 +24,7 @@ class GameScene extends Phaser.Scene {
         this.collectff = 0;
         this.gameFF = 0;
         this.gameEnemies = 0;
+        
       }
 
     preload(){ 
@@ -36,6 +37,8 @@ class GameScene extends Phaser.Scene {
     }
 
     create(){
+
+        
         //create map
         this.map = this.make.tilemap({key: 'map'});
         this.tiles = this.map.addTilesetImage('pinktilesheet', 'tiles');
@@ -56,6 +59,21 @@ class GameScene extends Phaser.Scene {
                 this.player = new Player(this, obj.x, obj.y)
             }  
         });
+        let playerX = this.player.x;
+        let playerY = this.player.y;
+        let user_id = localStorage.getItem('user_id');
+        GamesAdapter.createGame(user_id, playerX, playerY, this.attack, this.collectff).then(game => {
+                console.log(game)
+                localStorage.setItem('game_id', game.id)
+                console.log(localStorage.getItem('game_id'))
+               
+              
+                
+        })
+        
+        
+        
+      
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
@@ -135,7 +153,7 @@ class GameScene extends Phaser.Scene {
         this.pointer = this.input.activePointer;
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.saveFile();
+        
 
         this.attackText = this.add.text(400, 0, `Enemies banished: ${this.attack}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
         this.collectText = this.add.text(0, 0, `Fireflies collected: ${this.collectff}`, { fontSize: '25px', fill: '#000',  backgroundColor: '#cebff5'});
@@ -149,6 +167,7 @@ class GameScene extends Phaser.Scene {
           this.collectff++;
           this.collectText.setText(`Fireflies collected: ${this.collectff}`);
       })
+     
 
     }
 
@@ -187,7 +206,9 @@ class GameScene extends Phaser.Scene {
 
      if (this.attack === this.gameEnemies && this.collectff === this.gameFF){
         //this.events.emit('game-over');
-        this.updateFile();
+        //this.updateFile();
+        
+       
         return this.gameOver();
       };  
                   
@@ -195,6 +216,8 @@ class GameScene extends Phaser.Scene {
 
     gameOver() {
         // initiated game over sequence
+        
+        
         this.isTerminating = true;
 
         // fade out
@@ -203,40 +226,81 @@ class GameScene extends Phaser.Scene {
           //will prob need to change this to a gameOver Scene, and allow new game to be made based on current user and call to adapter
           this.scene.start('TitleScene');
     
-        }, this);      
+        }, this);   
+        
+        this.updateGame();
       };
 
-    saveFile(){      
-        let playerX = this.player.x;
-        let playerY = this.player.y;
-      
-        let id = localStorage.getItem('user_id')
-        GamesAdapter.createGame(id, playerX, playerY).then(game => {
-            localStorage.setItem('game_id', game.id)
-        })
-
-        let game_id = localStorage.getItem('game_id')
-        StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
-            localStorage.setItem('stat_id', stat.id)
-        })
-    }
-
-    updateFile(){
-        let playerX = this.player.x;
-        let playerY = this.player.y;
-        
-        let game_id = localStorage.getItem('game_id')
-        GamesAdapter.updateGame(game_id, playerX, playerY)
-
-        let stat_id = localStorage.getItem('stat_id')
-        StatsAdapter.updateStat(stat_id, this.attack, this.collectff)     
-    }
-   
-    collectFirefly(player, fireflies){
+      collectFirefly(player, fireflies){
         fireflies.disableBody(true, true); //remove from screen
        
         this.events.emit('collectff');     
-    };
+        };
+
+    // saveFile(){      
+    //     let playerX = this.player.x;
+    //     let playerY = this.player.y;
+      
+    //     let user_id = localStorage.getItem('user_id');
+    //     console.log(user_id);
+    //     GamesAdapter.createGame(user_id, playerX, playerY).then(game => {
+    //        // console.log(game);
+    //         localStorage.setItem('game_id', game.id);
+    //        // console.log(localStorage.getItem('game_id'));
+    //         //console.log(user_id);
+    //     });
+
+    //     let game_id = localStorage.getItem('game_id');
+    //     //console.log(game_id);
+    //     StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
+    //         localStorage.setItem('stat_id', stat.id);
+            
+    //     });
+    // }
+
+    createGame(){
+        let playerX = this.player.x;
+        let playerY = this.player.y;
+        let user_id = localStorage.getItem('user_id');
+        GamesAdapter.createGame(user_id, playerX, playerY).then(game => {
+                console.log(game)
+                GamesAdapter.createLocalStorage(game.id)
+        })
+       
+
+    }
+    createStat(){
+        let game_id = localStorage.getItem('game_id');
+        StatsAdapter.createStat(game_id, this.attack, this.collectff).then(stat =>{
+            localStorage.setItem('stat_id', stat.id);
+            
+        });
+    }
+    updateGame(){
+        let playerX = this.player.x;
+        let playerY = this.player.y;
+        let game_id = localStorage.getItem('game_id')
+        GamesAdapter.updateGame(game_id, playerX, playerY, this.attack, this.collectff)
+    }
+
+    updateStat(){
+        let stat_id = localStorage.getItem('stat_id')
+        StatsAdapter.updateStat(stat_id, this.attack, this.collectff) 
+
+    }
+
+    // updateFile(){
+    //     let playerX = this.player.x;
+    //     let playerY = this.player.y;
+        
+    //     let game_id = localStorage.getItem('game_id')
+    //     GamesAdapter.updateGame(game_id, playerX, playerY)
+
+    //     let stat_id = localStorage.getItem('stat_id')
+    //     StatsAdapter.updateStat(stat_id, this.attack, this.collectff)     
+    // }
+   
+    
 }
 
 export default GameScene
