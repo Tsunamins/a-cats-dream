@@ -52,7 +52,7 @@ const UsersAdapter = {
     },
 
     getUserStats: (id) => {
-        return fetch(`${userUrl}/${id}/stats`)
+        return fetch(`${userUrl}/${id}/games`)
         .then(res => res.json())
     },
 

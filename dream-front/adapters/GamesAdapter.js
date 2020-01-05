@@ -12,39 +12,33 @@ const GamesAdapter = {
         .then(res => res.json())
     },
 
-    createGame: (id, playerX, playerY) => {
+    createGame: (id, playerX, playerY, attack, collectff) => {
      
         return fetch(gameUrl, {
             method: 'POST', 
             headers: {                
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({'user_id': id, 'playerX': playerX, 'playerY': playerY})
+            body: JSON.stringify({'user_id': id, 'playerX': playerX, 'playerY': playerY, 'enemies_defeated': attack, 'fireflies_collected': collectff})
         }) 
         .then(res => res.json())
         
     },
 
-    createLocalStorage: (value) => {
-        return fetch(gameUrl, {
-            method: 'POST', 
-            headers: {                
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({'game_save': value})
-        }) 
+    createLocalStorage: (id) => {
+        return fetch(`${gameUrl}/${id}`) 
         .then(res => res.json())
          .then(data => localStorage.setItem('game_id', data.id))
         
     },
 
-    updateGame: (id, playerX, playerY) => {
+    updateGame: (id, playerX, playerY, attack, collectff) => {
         return fetch(`${gameUrl}/${id}`,{
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             }, 
-            body: JSON.stringify({'playerX': playerX, 'playerY': playerY})
+            body: JSON.stringify({'playerX': playerX, 'playerY': playerY, 'enemies_defeated': attack, 'fireflies_collected': collectff})
         })
         .then(res => res.json())
 
