@@ -17,7 +17,7 @@ class Users {
         //get user elements
         this.setCurrentUser = document.getElementById('current-user')
         this.userEmailField = document.getElementById('user-email')
-        //this.userEmailInput = document.getElementById('user-email')
+       
 
         //get user game elements
         this.gameData = document.getElementById('game-functions')
