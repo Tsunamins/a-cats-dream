@@ -60,22 +60,16 @@ class GameScene extends Phaser.Scene {
             }  
         });
 
-        //create game in backend
-        let playerX = this.player.x;
-        let playerY = this.player.y;
-        let user_id = localStorage.getItem('user_id');
-        GamesAdapter.createGame(user_id, playerX, playerY, this.attack, this.collectff).then(game => {
-                console.log(game)
-                localStorage.setItem('game_id', game.id)
-                console.log(localStorage.getItem('game_id'))
-               
-              
-                
-        })
+        //create game in api
+        this.createGame();
+        // let playerX = this.player.x;
+        // let playerY = this.player.y;
+        // let user_id = localStorage.getItem('user_id');
+        // GamesAdapter.createGame(user_id, playerX, playerY, this.attack, this.collectff).then(game => {
+        //         localStorage.setItem('game_id', game.id)           
+        // })
         
         
-        
-      
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
@@ -215,9 +209,7 @@ class GameScene extends Phaser.Scene {
     }
 
     gameOver() {
-        // initiated game over sequence
-        
-        
+        // initiated game over sequence 
         this.isTerminating = true;
 
         // fade out
@@ -228,28 +220,25 @@ class GameScene extends Phaser.Scene {
     
         }, this);   
         
+        //update game in api
         this.updateGame();
 
       };
 
       collectFirefly(player, fireflies){
-        fireflies.disableBody(true, true); //remove from screen
-       
+        fireflies.disableBody(true, true); //remove from screen  
         this.events.emit('collectff');     
         };
 
     
         //may want to use this later
     createGame(){
-        let playerX = this.player.x;
-        let playerY = this.player.y;
-        let user_id = localStorage.getItem('user_id');
-        GamesAdapter.createGame(user_id, playerX, playerY).then(game => {
-                console.log(game)
-                GamesAdapter.createLocalStorage(game.id)
-        })
-       
-
+      let playerX = this.player.x;
+      let playerY = this.player.y;
+      let user_id = localStorage.getItem('user_id');
+      GamesAdapter.createGame(user_id, playerX, playerY, this.attack, this.collectff).then(game => {
+              localStorage.setItem('game_id', game.id)           
+      })
     }
     
     //using this
