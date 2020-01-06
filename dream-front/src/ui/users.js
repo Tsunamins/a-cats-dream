@@ -7,8 +7,7 @@ class Users {
        
         this.arrayFF = [];
         this.arrayEn = [];
-        //this.arrayFF5 = [];
-       // this.arrayEn5 = [];
+        
         this.arrayAllStats = [];
        
         
@@ -40,36 +39,15 @@ class Users {
     }
 
     getUserGames(){
-        
         const user_id = localStorage.getItem('user_id')        
         UsersAdapter.getUserStats(user_id).then(stats => {
 
             stats.forEach(stat => 
             this.arrayAllStats.push(stat))
 
-        
-           
-            this.arrayAllStats.forEach(stat => {
-                this.arrayFF.push(stat.fireflies_collected)
-                this.arrayEn.push(stat.enemies_defeated)
-            })
-        
-        const fireFlyH3 = document.createElement('h3')
-        const enemyH3 = document.createElement('h3')
-        const addFF = this.arrayFF.reduce((total, add) => total + add, 0);        
-        const addEn = this.arrayEn.reduce((total, add) => total + add, 0);
-        fireFlyH3.innerText = `All Time Fireflies Collected: ${addFF}`
-        enemyH3.innerText = `All Time Enemies Banished: ${addEn}`
-        this.gameData.appendChild(fireFlyH3)
-        this.gameData.appendChild(enemyH3)
-        console.log(stats)
-        console.log(this.arrayAllStats)
-                             
         this.renderRecentGames()
-      
+        this.renderAllTimeStats()
         })
-    
-      
     }
 
 
@@ -97,6 +75,24 @@ class Users {
             li.innerText = `Fireflies collected: ${stat.fireflies_collected}` + ` Enemies Banished: ${stat.enemies_defeated}`
             this.gameList.appendChild(li)
         })
+
+    }
+
+    renderAllTimeStats(){
+        this.arrayAllStats.forEach(stat => {
+            this.arrayFF.push(stat.fireflies_collected)
+            this.arrayEn.push(stat.enemies_defeated)
+        })
+    
+        const fireFlyH3 = document.createElement('h3')
+        const enemyH3 = document.createElement('h3')
+        const addFF = this.arrayFF.reduce((total, add) => total + add, 0);        
+        const addEn = this.arrayEn.reduce((total, add) => total + add, 0);
+        fireFlyH3.innerText = `All Time Fireflies Collected: ${addFF}`
+        enemyH3.innerText = `All Time Enemies Banished: ${addEn}`
+        this.gameData.appendChild(fireFlyH3)
+        this.gameData.appendChild(enemyH3)
+ 
 
     }
 
