@@ -7,11 +7,6 @@ const UsersAdapter = {
         
     },
 
-    getUser: (id) => {
-        return fetch(`${userUrl}/${id}`)
-        .then(res => res.json())
-    },
-
     createUser: (value) => {
      
         return fetch(userUrl, {
@@ -24,19 +19,6 @@ const UsersAdapter = {
         .then(res => res.json())
         //this interferes with userclass construction
         //.then(data => localStorage.setItem('user_id', data.id))
-    },
-
-    createLocalStorage: (value) => {
-        return fetch(userUrl, {
-            method: 'POST', 
-            headers: {                
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({'email': value})
-        }) 
-        .then(res => res.json())
-         .then(data => localStorage.setItem('user_id', data.id))
-        
     },
 
     updateUser: (id, value) => {

@@ -7,11 +7,6 @@ const GamesAdapter = {
         
     },
 
-    getGame: (id) => {
-        return fetch(`${gameUrl}/${id}`)
-        .then(res => res.json())
-    },
-
     createGame: (id, playerX, playerY, attack, collectff) => {
      
         return fetch(gameUrl, {
@@ -22,13 +17,6 @@ const GamesAdapter = {
             body: JSON.stringify({'user_id': id, 'playerX': playerX, 'playerY': playerY, 'enemies_defeated': attack, 'fireflies_collected': collectff})
         }) 
         .then(res => res.json())
-        
-    },
-
-    createLocalStorage: (id) => {
-        return fetch(`${gameUrl}/${id}`) 
-        .then(res => res.json())
-         .then(data => localStorage.setItem('game_id', data.id))
         
     },
 
