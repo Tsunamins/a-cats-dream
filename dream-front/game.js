@@ -1,8 +1,29 @@
 import GameScene from './src/game/GameScene.js'
 import TitleScene from './src/game/TitleScene.js'
 
+const sortButton = document.getElementById('sort');
+const sorted = document.getElementById('sorted')
+sortButton.addEventListener('click', () => {
+  console.log("the sort button clicked")
+  return fetch(`http://localhost:3000/users/3/games`)
+  .then(res => res.json())
+  .then(stats => {
+    
+    stats.sort(function (a, b) {
+      return a.fireflies_collected - b.fireflies_collected;
+    });
 
+    stats.forEach(stat => {
+      const li = document.createElement('li')
+      li.innerText = stat.fireflies_collected
+      sorted.appendChild(li)
+      
+    })
+    console.log(stats)       
+  })
 
+  
+});
 
 const userInfoForm = document.getElementById('user-info-form');
 const userEmailInput = document.getElementById('user-email')

@@ -22,9 +22,20 @@
         <input id="user-update" type="text" name="email">
         <input id="update-button" type="submit" value="Update">
       </form>
+
+
       
          <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
       </div>
+
+    <div >
+      <button id="sort">
+        Sort Data
+      </button>
+      <ul id="sorted">
+        
+      </ul>
+    </div>
 
     <div id="game-functions">
       <h3 id="recent-games">Recent Games</h3>
@@ -51,7 +62,7 @@
   <script src="src/ui/users.js"></script>
   <script src="adapters/UsersAdapter.js"></script>
   <script src="adapters/GamesAdapter.js"></script>
-  <script src="adapters/StatsAdapter.js"></script>
+ 
   <script src="game.js" type="module"></script>
   
 </body>
