@@ -11,9 +11,25 @@ class UsersController < ApplicationController
     end 
 
     def create 
-     @user = User.find_or_create_by(email: user_params[:email])
+        
+        @user = User.new(user_params)
 
-      render json: @user, status: 200
+ 
+    if @user.save
+      session[:user_id] = @user.id
+      #render json: UserSerializer.new(@user), status: :created
+      render json: @user, status: :created
+    else
+      resp = {
+        error: @user.errors.full_messages.to_sentence
+      }
+      render json: resp, status: :unprocessable_entity
+    end
+     
+    #current setup:
+    # @user = User.find_or_create_by(email: user_params[:email])
+
+    # render json: @user, status: 200
       
     end
 
@@ -33,7 +49,7 @@ class UsersController < ApplicationController
 
     private
         def user_params
-            params.require(:user).permit(:email) #for now
+            params.require(:user).permit(:email, :password)
         end 
 
     
