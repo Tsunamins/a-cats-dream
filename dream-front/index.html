@@ -8,51 +8,53 @@
 </head>
 <body>
   <div id="canvas"></div>
+
+
   <div id="ui">
-    <div >
-      <form id="user-info-form">
-        <p>Enter email to start a new game:</p>
-        <input id="user-email" type="text" name="email">
-        <input id="password" type="password" name="password">
-        <input type="submit" value="Submit">
-        
-      </form>
-    <div id="current-user"></div>
-      
-    <div id="user-functions">
-      <form id="update-form">
-        <input id="user-update" type="text" name="email">
-        <input id="update-button" type="submit" value="Update">
-      </form>
-
-
-      
-         <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
+    <div>
+      <div id='Login'>
+        <form id="user-info-form" onsubmit="myFunction()">
+          <p>Login:</p>
+          <input id="user-email" type="text" name="email">
+          <input id="password" type="password" name="password">
+          <input type="submit" value="Submit">
+        </form>
       </div>
 
-    <div >
-      <button id="sort">
-        Sort Data
-      </button>
-      <ul id="sorted">
-        
-      </ul>
-    </div>
+      <div id='Sign Up'>
+        <form id="user-signup" onsubmit="myFunction()">
+          <p>Sign Up:</p>
+          <input id="user-email" type="text" name="email">
+          <input id="name" type="text" name="name">
+          <input id="password" type="password" name="password">
+          <input type="submit" value="Submit">
+        </form>
+      </div>
 
-    <div id="game-functions">
-      <h3 id="recent-games">Recent Games</h3>
-      <ul id="game-list">
+      <div id="current-user"></div>
+      
+      <div id="user-functions">
+        <form id="update-form">
+          <input id="user-update" type="text" name="email">
+          <input id="update-button" type="submit" value="Update">
+        </form>
+        <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
+      </div> 
+      
+         
+      
 
-      </ul>
+      <div>
+        <button id="sort">
+          Sort Data
+        </button>
+        <ul id="sorted"></ul>
+      </div>
 
-
-
-
-    </div>
-    
-
-
-
+      <div id="game-functions">
+        <h3 id="recent-games">Recent Games</h3>
+        <ul id="game-list"></ul>
+      </div>
 
     </div>
 
@@ -60,7 +62,7 @@
 
   
  
-  
+  <script src="src/ui/auth.js"></script>
   <script src="src/ui/users.js"></script>
   <script src="adapters/UsersAdapter.js"></script>
   <script src="adapters/GamesAdapter.js"></script>
