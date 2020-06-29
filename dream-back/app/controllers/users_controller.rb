@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+    skip_before_action :user_not_logged_in, only: [:new, :create]
     def show
         @user = User.find(params[:id])
         render json: @user, status: 200
@@ -11,11 +11,9 @@ class UsersController < ApplicationController
     end 
 
     def create 
-        
-        @user = User.new(user_params)
-
- 
-    if @user.save
+    @user = User.new(user_params)
+    # binding.pry
+     if @user.save
       session[:user_id] = @user.id
       #render json: UserSerializer.new(@user), status: :created
       render json: @user, status: :created
@@ -49,7 +47,7 @@ class UsersController < ApplicationController
 
     private
         def user_params
-            params.require(:user).permit(:email, :password, :name)
+            params.require(:user).permit(:email, :name, :password)
         end 
 
     
