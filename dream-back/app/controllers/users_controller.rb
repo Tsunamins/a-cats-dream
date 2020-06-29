@@ -1,13 +1,22 @@
 class UsersController < ApplicationController
     skip_before_action :user_not_logged_in, only: [:new, :create]
     def show
-        @user = User.find(params[:id])
-        render json: @user, status: 200
+        @user = User.find_by(id: params[:id])
+        
+        # @user = User.find(params[:id])
+        # render json: @user, status: 200
+        
+        user_json = UserSerializer.new(@user).serialized_json
+        render json: user_json
     end
 
     def index
+     
         @users = User.all
-        render json: @users, status: 200 
+        # @users = User.all
+        # render json: @users, status: 200 
+        users_json = UserSerializer.new(@users).serialized_json
+        render json: users_json
     end 
 
     def create 
@@ -15,8 +24,8 @@ class UsersController < ApplicationController
     # binding.pry
      if @user.save
       session[:user_id] = @user.id
-      #render json: UserSerializer.new(@user), status: :created
-      render json: @user, status: :created
+      render json: UserSerializer.new(@user), status: :created
+      #render json: @user, status: :created
     else
       resp = {
         error: @user.errors.full_messages.to_sentence

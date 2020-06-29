@@ -7,8 +7,8 @@ class SessionsController < ApplicationController
         if @user && @user.authenticate(params[:session][:password])
          
           session[:user_id] = @user.id
-          #render json: UserSerializer.new(@user), status: :ok
-          render json: @user, status: :ok
+          render json: UserSerializer.new(@user), status: :ok
+          #render json: @user, status: :ok
         else
           render json: {
             error: "Invalid Credentials"
