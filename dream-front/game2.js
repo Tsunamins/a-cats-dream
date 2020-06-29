@@ -25,11 +25,14 @@ function handleSignup(e){
     // current_user = new CurrentUser();
     AuthAdapter.signup(signUpEmail.value, signUpName.value, signUpPasword.value).then(resp => {
         console.log(resp)
-        sessionStorage.setItem('current_user', resp.id)
+        sessionStorage.setItem('current_user', resp.data.id)
         
-        current_user.push(resp)
+        current_user.push(resp.data)
         console.log(current_user)
-        const game = new Phaser.Game(config);
+        if(current_user.length > 0){
+            const ui = new UserInterface(current_user)
+            const game = new Phaser.Game(config);
+        }
     })
 
 }
@@ -39,11 +42,14 @@ function handleLogin(e){
     console.log('trigger login')
     AuthAdapter.login(userEmail.value, userPassword.value).then(resp => {
         console.log(resp)
-        sessionStorage.setItem('current_user', resp.id)
+        sessionStorage.setItem('current_user', resp.data.id)
         
-        current_user.push(resp)
+        current_user.push(resp.data)
         console.log(current_user)
-        const game = new Phaser.Game(config);
+        if(current_user.length > 0){
+            const ui = new UserInterface(current_user)
+            const game = new Phaser.Game(config);
+        }
     })
     
 
