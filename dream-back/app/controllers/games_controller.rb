@@ -6,11 +6,14 @@ class GamesController < ApplicationController
         if params[:user_id]
             @user = User.find_by(id: params[:user_id])
             @games = @user.games
-      
+            
         else 
             @games = Game.all 
+            
         end
-        render json: @games, status: 200 
+        #render json: @games, status: 200 
+        games_json = GameSerializer.new(@games)
+        render json: games_json
     end
 
     def show
