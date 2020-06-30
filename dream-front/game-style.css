@@ -1,6 +1,13 @@
-#user-functions, #game-functions {
+#if-logged-in {
     
     visibility: hidden;
+}
+
+
+
+.columns div {
+    display: inline-block;
+    padding: 20px;
 }
 
 
