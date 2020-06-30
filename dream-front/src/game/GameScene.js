@@ -73,7 +73,7 @@ class GameScene extends Phaser.Scene {
         //add enemies group for now
         this.enemies = this.physics.add.group({
             key: 'enemy',
-            repeat: Phaser.Math.Between(9, 9),
+            repeat: Phaser.Math.Between(4, 9),
           
         });
 
@@ -104,7 +104,7 @@ class GameScene extends Phaser.Scene {
         //add fireflies group
         this.fireflies = this.physics.add.group({
             key:'firefly',
-            repeat: Phaser.Math.Between(9, 9),  
+            repeat: Phaser.Math.Between(4, 9),  
           });
 
         this.gameFF = this.fireflies.children.entries.length;
@@ -199,6 +199,9 @@ class GameScene extends Phaser.Scene {
      this.attackText.setY(this.camera.midPoint.y - 300);
      this.collectText.setX(this.camera.midPoint.x - 375)
      this.collectText.setY(this.camera.midPoint.y - 300)
+
+     console.log(this.attack)
+     console.log(this.collectff)
 
      if (this.attack === this.gameEnemies && this.collectff === this.gameFF){
         

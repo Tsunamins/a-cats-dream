@@ -4,9 +4,7 @@ const AuthAdapter = {
 
 
         signup: (email, name, pw) => {
-            console.log(email)
-            console.log(name)
-            console.log(pw)
+           
         
             return fetch(`${baseURL}/signup`, {
                 method: 'POST', 
@@ -21,8 +19,7 @@ const AuthAdapter = {
         },
 
         login: (email, pw) => {
-            console.log(email)
-            console.log(pw)
+          
             return fetch(`${baseURL}/login`, {
                 // credentials: "include",
                 method: 'POST', 

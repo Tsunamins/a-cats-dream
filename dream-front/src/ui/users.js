@@ -53,10 +53,11 @@ class Users {
 
 
     render(value){    
+        console.log(value)
         const h3 = document.createElement('h3');
         const userFunctions = document.getElementById('user-functions')
         const gameFunctions = document.getElementById('game-functions')
-        const removeForm = document.getElementById("user-info-form")
+        const removeForm = document.getElementById("login-form")
         
         h3.innerHTML = `
             <h3 id="user-display">${value}</h3>`;
