@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :update, :destroy]
+    skip_before_action :require_login, only: [:create]
+
     def show
+        @user = User.find(params[:id])
         user_json = UserSerializer.new(@user).serialized_json
         render json: user_json
     end
@@ -15,8 +17,11 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
         # binding.pry
         if @user.save
-            session[:user_id] = @user.id
-            render json: UserSerializer.new(@user), status: :created
+            payload = {user_id: user.id}
+            token = encode_token(payload)
+            puts token
+            render json: {UserSerializer.new(@user), status: :created, jwt: token}
+            #render json: UserSerializer.new(@user), status: :created
         else
             resp = {
                 error: @user.errors.full_messages.to_sentence
@@ -38,12 +43,10 @@ class UsersController < ApplicationController
         render json: {userId: @user.id} 
     end
 
-    private
-        # Use callbacks to share common setup or constraints between actions.
-        def set_user
-            @user = User.find(params[:id])
-        end
 
+
+    private
+      
         # Only allow a trusted parameter "white list" through.
         def user_params
             params.require(:user).permit(:email, :name, :password)
