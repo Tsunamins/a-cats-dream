@@ -1,17 +1,15 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users
+  resource :users, only: [:create]
+  post "/login", to: "auth#login"
+  get "/auto_login", to: "auth#auto_login"
+  get "/user_is_authed", to: "auth#user_is_authed"
+ 
   resources :games
-  resources :stats
 
-  post "/login", to: "sessions#create"
-  post "/signup", to: "users#create"
-  delete "/logout", to: "sessions#destroy"
-  get "/get_current_user", to: "sessions#get_current_user"
-
-  resources :users do
-    resources :games
-  end
+  # resources :users do
+  #   resources :games
+  # end
 
  
 
