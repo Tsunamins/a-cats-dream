@@ -200,9 +200,6 @@ class GameScene extends Phaser.Scene {
      this.collectText.setX(this.camera.midPoint.x - 375)
      this.collectText.setY(this.camera.midPoint.y - 300)
 
-     console.log(this.attack)
-     console.log(this.collectff)
-
      if (this.attack === this.gameEnemies && this.collectff === this.gameFF){
         
        
