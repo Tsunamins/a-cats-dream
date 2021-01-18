@@ -1,40 +1,26 @@
 class GamesController < ApplicationController
-    before_action :user_not_logged_in
+
     def index
         @user = User.find_by(id: params[:id])
         #@games = Game.all
         if params[:user_id]
             @user = User.find_by(id: params[:user_id])
             @games = @user.games
-            
+      
         else 
             @games = Game.all 
-            
         end
-        #render json: @games, status: 200 
-        games_json = GameSerializer.new(@games)
-        render json: games_json
+        render json: @games, status: 200 
     end
 
     def show
-        render json: @game
+        @game = Game.find(params[:id])
+        render json: @game, status: 200
     end
 
     def create
-        
-    
-        @game = current_user.games.build(game_params)
-
-        if @game.save
-        render json:  GameSerializer.new(@game), status: :created
-        else
-        error_resp = {
-            error: @game.errors.full_messages.to_sentence
-        }
-        render json: error_resp, status: :unprocessable_entity
-        end
-
-
+        @game = Game.create(game_params)   
+        render json: @game, status: 200
     end
 
     def update
@@ -52,7 +38,7 @@ class GamesController < ApplicationController
 
     private
         def game_params
-            params.require(:game).permit(:playerX, :playerY, :fireflies_collected, :enemies_defeated)
+            params.require(:game).permit(:user_id, :playerX, :playerY, :fireflies_collected, :enemies_defeated)
         end
 
 
