@@ -27,10 +27,6 @@ const UsersAdapter = {
         //.then(data => localStorage.setItem('user_id', data.id))
     },
 
-    loginUser: (value) => {
-
-    },
-
     updateUser: (id, value) => {
         return fetch(`${userUrl}/${id}`,{
             method: 'PATCH',
