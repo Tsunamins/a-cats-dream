@@ -1,26 +1,30 @@
 class GamesController < ApplicationController
-
+    include Secured ## <- our Secured Concern.
     def index
-        @user = User.find_by(id: params[:id])
-        #@games = Game.all
-        if params[:user_id]
-            @user = User.find_by(id: params[:user_id])
-            @games = @user.games
-      
-        else 
-            @games = Game.all 
-        end
-        render json: @games, status: 200 
+        @games = Game.all
+        render json: GameSerializer.new(@games)
+
     end
 
     def show
-        @game = Game.find(params[:id])
-        render json: @game, status: 200
+        render json: @game
     end
 
     def create
-        @game = Game.create(game_params)   
-        render json: @game, status: 200
+        
+    
+        @game = current_user.games.build(game_params)
+
+        if @game.save
+        render json:  GameSerializer.new(@game), status: :created
+        else
+        error_resp = {
+            error: @game.errors.full_messages.to_sentence
+        }
+        render json: error_resp, status: :unprocessable_entity
+        end
+
+
     end
 
     def update
@@ -38,7 +42,7 @@ class GamesController < ApplicationController
 
     private
         def game_params
-            params.require(:game).permit(:user_id, :playerX, :playerY, :fireflies_collected, :enemies_defeated)
+            params.require(:game).permit(:playerX, :playerY, :fireflies_collected, :enemies_defeated)
         end
 
 

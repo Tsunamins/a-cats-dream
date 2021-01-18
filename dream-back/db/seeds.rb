@@ -14,4 +14,3 @@
 
 # Stat.create([
 # {fireflies_collected: 5, enemies_defeated: 10, hit_by_enemy: 100, strategy_score: 10, game_id: 1},])
-
