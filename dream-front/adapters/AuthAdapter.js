@@ -1,9 +1,12 @@
 const baseURL = 'http://localhost:3000';
 const AuthAdapter = {
 
-        signup: (email, name, pw) => {       
-            return fetch(`${baseURL}/users`, {
-                credentials: "include",
+
+
+        signup: (email, name, pw) => {
+           
+        
+            return fetch(`${baseURL}/signup`, {
                 method: 'POST', 
                 headers: {                
                     'content-type': 'application/json'
@@ -11,50 +14,34 @@ const AuthAdapter = {
                 body: JSON.stringify({user: {'email': email, 'name': name, 'password': pw}})
             }) 
             .then(res => res.json())
-
+            //this interferes with userclass construction
+            //.then(data => localStorage.setItem('user_id', data.id))
         },
 
         login: (email, pw) => {
-
-            let request = {"auth":{"email": email, "password": pw}}
-
-            return fetch(`${baseURL}/user_token`, {
+          
+            return fetch(`${baseURL}/login`, {
+                // credentials: "include",
                 method: 'POST', 
                 headers: {                
                     'content-type': 'application/json'
                 },
-                body: JSON.stringify(request)
+                body: JSON.stringify({'email': email, 'password': pw})
             }) 
             .then(res => res.json())
-            .then(response => {
-                localStorage.setItem("jwt", response.data.jwt);
 
-            })
-
-            // .then(result => console.log(result))
-            // .catch(error => console.log('error', error));
-
-            },
+        },
 
         getCurrentUser: () => {
-            return fetch(`${baseURL}/logged_in`, {
-                credentials: "include",
+            return fetch(`${baseURL}/get_current_user`, {
+                // credentials: "include",
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json"
                 },
             })
             .then(res => res.json())
-        }, 
-
-        logout: () => {
-            return fetch(`${baseURL}/logout`, {
-                credentials: "include",
-                method: "DELETE"
-            })
-
         }
 
 }
-
 

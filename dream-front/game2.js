@@ -41,20 +41,21 @@ function handleSignup(e){
 function handleLogin(e){
     e.preventDefault();
     console.log('trigger login')
-    AuthAdapter.login(userEmail.value, userPassword.value).then(resp => {
+    AuthAdapter.login(userEmail.value, userPassword.value)
+    // .then(resp => {
      
         
-        console.log(resp)
-        current_user.push(resp.data.attributes)
-        console.log(current_user)
-        if(current_user.length > 0){
+    //     console.log(resp)
+    //     current_user.push(resp.data.attributes)
+    //     console.log(current_user)
+    //     if(current_user.length > 0){
            
-            sessionStorage.setItem('current_user', resp.data.id)
-            const ui = new UserInterface(current_user[0])
+    //         sessionStorage.setItem('current_user', resp.data.id)
+    //         const ui = new UserInterface(current_user[0])
            
-            const game = new Phaser.Game(config);
-        }
-    })
+    //         const game = new Phaser.Game(config);
+    //     }
+    // })
     
 
 }

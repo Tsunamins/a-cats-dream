@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-    include Secured ## <- our Secured Concern
     before_action :set_user, only: [:show, :update, :destroy]
     def show
        

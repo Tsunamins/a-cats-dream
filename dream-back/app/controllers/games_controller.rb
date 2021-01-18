@@ -1,9 +1,19 @@
 class GamesController < ApplicationController
-    include Secured ## <- our Secured Concern.
+    before_action :user_not_logged_in
     def index
-        @games = Game.all
-        render json: GameSerializer.new(@games)
-
+        @user = User.find_by(id: params[:id])
+        #@games = Game.all
+        if params[:user_id]
+            @user = User.find_by(id: params[:user_id])
+            @games = @user.games
+            
+        else 
+            @games = Game.all 
+            
+        end
+        #render json: @games, status: 200 
+        games_json = GameSerializer.new(@games)
+        render json: games_json
     end
 
     def show
