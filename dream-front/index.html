@@ -8,88 +8,61 @@
 </head>
 <body>
   <div id="canvas"></div>
-
-
   <div id="ui">
-    
-    <div id="auth-forms">
-      <div id='login'>
-        <form id="login-form" >
-          <p>Login:</p>
-          <input id="email" type="text" name="email" placeholder="Email Address" >
-          <input id="password" type="password" name="password" placeholder="Password" >
-          <input type="submit" value="Submit">
-        </form>
-      </div>
-
-      <div id='sign-up'>
-        <form id="signup-form" >
-          <p>Sign Up:</p>
-          <input id="signup-email" type="text" name="email" placeholder="Email Address">
-          <input id="signup-name" type="text" name="name" placeholder="Your Name">
-          <input id="signup-password" type="password" name="password" placeholder="Password" >
-          <input type="submit" value="Submit">
-        </form>
-      </div>
-    </div> <!-- end auth-forms-->
+    <div >
+      <form id="user-info-form">
+        <p>Enter email to start a new game:</p>
+        <input id="user-email" type="text" name="email">
+        <input type="submit" value="Submit">
+      </form>
+    <div id="current-user"></div>
+      
+    <div id="user-functions">
+      <!-- <form id="update-form">
+        <input id="user-update" type="text" name="email">
+        <input id="update-button" type="submit" value="Update">
+      </form> -->
 
 
       
-      
-    <div id="if-logged-in"> 
-    <!-- new ideas -->
-      <div class="columns">
+         <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
+      </div>
 
-        <div id="current-game">Current Game</div>
-
-        <div id="previous-games">
-          <div id="game-functions">
-            <h3 id="recent-games">Recent Games</h3>
-            <ul id="game-list"></ul>
-          </div>
-             
-          <div id="from-assessment">
-              <button id="sort">Sort Data<ul id="sorted"></ul>
-          </div>
-        </div> <!-- end prev-games section-->
+    <div >
+      <button id="sort">
+        Sort Data
+      </button>
+      <ul id="sorted">
         
-        <div id="user-profile">
-          <li id="name-display"></li>
-          <li>
-            <form id="update-form">
-              <input id="user-update" type="text" name="email">
-              <input id="update-button" type="submit" value="Update">
-            </form>
-          </li>
-          <li>  
-              <a id="reload" class="logout" href="javascript:window.location.reload(true)">Logout or Start a New Game</a>
-          </li>
-        </div> <!--end user profile section-->
+      </ul>
+    </div>
 
-      </div> <!-- end columns-->
-     
-     
-      
+    <div id="game-functions">
+      <h3 id="recent-games">Recent Games</h3>
+      <ul id="game-list">
 
-    </div> <!-- end if-logged-in tag-->
-
-  </div><!-- end ui tag-->
+      </ul>
 
 
 
 
+    </div>
+    
 
-   
+
+
+
+    </div>
+
+  </div>
 
   
-  <script src="src/ui/UserInterface.js"></script>
-  <!-- <script src="src/ui/auth.js"></script> -->
+ 
+  
   <script src="src/ui/users.js"></script>
   <script src="adapters/UsersAdapter.js"></script>
   <script src="adapters/GamesAdapter.js"></script>
-  <script src="adapters/AuthAdapter.js"></script>
  
-  <!-- <script src="game.js" type="module"></script> -->
   <script src="game.js" type="module"></script>
   
 </body>
