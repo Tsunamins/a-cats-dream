@@ -38,14 +38,14 @@ logoutLink.addEventListener('click', () => {
   localStorage.removeItem('user_id');
 })
 
-console.log(sessionStorage.current_user)
-if(sessionStorage.current_user){
-  UsersAdapter.getUser(sessionStorage.current_user).then(resp => {
-    console.log(resp)
-  })
-  const estUser = new CurrentUser()
-  console.log(estUser)
-}
+// console.log(sessionStorage.current_user)
+// if(sessionStorage.current_user){
+//   UsersAdapter.getUser(sessionStorage.current_user).then(resp => {
+//     console.log(resp)
+//   })
+//   const estUser = new CurrentUser()
+//   console.log(estUser)
+// }
 
 
 
