@@ -22,7 +22,7 @@ gem 'fast_jsonapi'
 
  # gem 'knock'
 
- gem 'jwt'
+ # gem 'jwt'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
