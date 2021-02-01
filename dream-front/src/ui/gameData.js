@@ -1,5 +1,7 @@
 class GameData {
     constructor(currentUser) {
+        //in the construction of gameData create and use the following 
+        //funcitons and variables
         this.currentUser = currentUser;
         this.userElements();
         this.createGameDataDisplay();
