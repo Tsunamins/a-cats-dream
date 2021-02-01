@@ -43,6 +43,7 @@ logoutLink.addEventListener('click', () => {
 function establishUserWithNewGame(event){
   event.preventDefault(); 
   const user = new Users(userEmailInput.value)
+  const userGames = new GameData(userEmailInput.value)
   const game = new Phaser.Game(config);
   
 }
