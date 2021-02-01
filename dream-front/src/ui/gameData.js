@@ -1,7 +1,8 @@
 class GameData {
     constructor(currentUser) {
         this.currentUser = currentUser;
-         
+        this.userElements();
+        this.createGameDataDisplay();
         this.arrayFF = [];
         this.arrayEn = [];
         this.arrayAllStats = [];
@@ -22,11 +23,13 @@ class GameData {
     }
 
     getUserGames(){
-        const user_id = localStorage.getItem('user_id')        
+        const user_id = localStorage.getItem('user_id')
+        console.log(user_id)        
         UsersAdapter.getUserStats(user_id).then(stats => {
 
             stats.forEach(stat => 
             this.arrayAllStats.push(stat))
+
             
         this.renderRecentGames()
         this.renderAllTimeStats()
